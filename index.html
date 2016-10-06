@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="invertedIndex">
+<head>
+    <title>INVERTED INDEX</title>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+    <script type="text/javascript" src="src/inverted-index.js"></script>
+
+    <script type="text/javascript" src="src/app.js"></script>
+</head>
+<body ng-controller="invertedController">
+    <!-- beginning of the header -->
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Inverted Index</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- end of headder -->
+
+    <div class="container">
+        <div class="col-sm-6">
+            <h1>
+                Inverted Index
+            </h1>
+            <blockquote>
+                <p>
+                    Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
+                </p>
+            </blockquote>
+        </div>
+
+        <div class="col-sm-6">
+            <h3>
+                Inverted Index
+            </h3>
+            <hr/>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="uploadfile" class="btn btn-primary">Upload JSON File</label>
+                    <input class="form-control" type="file" id="uploadfile" style="display:none">
+
+                </div>
+            </form>
+            <div class="clearfix"></div>
+            <br/><br/>
+            <button class="btn btn-large btn-primary">GET INDEX</button>
+        </div>
+    </div>
+</body>
+</html>
