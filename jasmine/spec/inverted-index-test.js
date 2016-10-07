@@ -14,7 +14,7 @@ describe('Populate Index', function() {
     expect(indexed).toBeFalsy();
   });
 
-  it('should return a correct object when a valid json was passed',
+  it('should add property wordIndex if a valid json is passed',
     function () {
       var book = [
         {
@@ -26,7 +26,8 @@ describe('Populate Index', function() {
           'text': 'The travis in CI is not in'
         }
       ];
-      var indexed = this.indexInstance.createIndex('dfa', book);
+      this.indexInstance.createIndex('dfa', book);
+      var indexed = this.indexInstance.getIndex();
       var answer = {
         'some': [1],
         'the': [1, 2],
@@ -36,9 +37,41 @@ describe('Populate Index', function() {
         'travis': [2],
         'ci': [2],
         'is': [2],
-        'not': [2]
+        'not': [2],
+        'trust': [1]
       };
-      console.log(indexed);
       expect(indexed).toEqual(answer);
   });
+
+  it('should add a property invalidDocuments if some docs don\'t have title or text',
+    function() {
+      var book = [
+        {
+          'title': 'The hill',
+        },
+        {
+          'text': 'The travis in CI is not in'
+        }
+      ];
+      var indexed = this.indexInstance.createIndex('dfa', book);
+      this.indexInstance.invalidDocuments.toEqual([1,2]);
+    });
 });
+
+describe('Search index', function() {
+  it('should return an array of indices of the word searched', function() {
+    var book = [
+        {
+          'title': 'The hill',
+          'text': 'Some may trust in'
+        },
+        {
+          'title': 'Travis',
+          'text': 'The travis in CI is not in'
+        }
+      ];
+    this.indexInstance.createIndex('dfa', book);
+    var result = this.indexInstance.searchIndex('in');
+    expect(result).toEqual([0, 1]);
+  });
+})

@@ -12,8 +12,8 @@ var Index = function() {
       return false;
     }
 
-    var textArray = [], invalidDocs = [], documentNum = 1, newData = [];
-
+    var textArray = [], documentNum = 1, newData = [];
+    this.invalidDocs = [];
     //loop through each doc in the json
     for(var eachIndex in jsonData) {
       var aDocument = jsonData[eachIndex];
@@ -26,7 +26,7 @@ var Index = function() {
           textArray.push({documentNum, textTokens});
       } else {
         // keeping track of invalid documents
-        invalidDocs.push(documentNum);
+        this.invalidDocs.push(documentNum);
       }
       documentNum++;
     }
@@ -76,7 +76,7 @@ var Index = function() {
   }
 
   this.getIndex = function() {
-    console.log(this.wordIndex);
+    return this.wordIndex;
   }
 
 };
