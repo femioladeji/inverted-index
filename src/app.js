@@ -54,5 +54,6 @@ invApp.controller('invertedController', function($scope){
         console.log('button clicked');
         var invIndex = new Index();
         invIndex.createIndex('dslkf');
+        invIndex.getIndex();
     }
 });

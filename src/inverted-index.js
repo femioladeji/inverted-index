@@ -34,7 +34,7 @@ var Index = function() {
         aDocument.hasOwnProperty('title')) {
           //convert the string of both title and text into array
           //and keep track of the document number
-          var textTokens = this.tokenize(aDocument.text + aDocument.title);
+          var textTokens = this.tokenize(aDocument.text + " " + aDocument.title);
           textArray.push({documentNum, textTokens});
       } else {
         // keeping track of invalid documents
@@ -43,8 +43,7 @@ var Index = function() {
       documentNum++;
     }
 
-    var wordIndex = this.constructIndex(textArray);
-    console.log(wordIndex);
+    this.wordIndex = this.constructIndex(textArray);
   }
 
   /**
@@ -66,26 +65,30 @@ var Index = function() {
 
   */
   this.constructIndex = function(documents) {
-    var wordsIndex = {};
-    console.log(documents);
+    var indexDict = {};
     for(var each in documents) {
       var tokenArray = documents[each].textTokens;
       for(var i = 0; i < tokenArray.length; i++){
         var token = tokenArray[i];
         //check if the word has already been indexed
-        if(!wordsIndex.hasOwnProperty(token)) {
-          wordsIndex[token] = [documents[each].documentNum];
+        if(!indexDict.hasOwnProperty(token)) {
+          indexDict[token] = [documents[each].documentNum];
         } else {
           //if the word has already been indexed
           //a check is run to confirm if the document has been indexed
           //with the word
-          if(wordsIndex[token].indexOf(documents[each].documentNum) === -1) {
-            wordsIndex[token].push(documents[each].documentNum);
+          if(indexDict[token].indexOf(documents[each].documentNum) === -1) {
+            indexDict[token].push(documents[each].documentNum);
           }
         }
       }
     }
 
-    return wordsIndex;
+    return indexDict;
   }
+
+  this.getIndex = function() {
+    console.log(this.wordIndex);
+  }
+
 };
