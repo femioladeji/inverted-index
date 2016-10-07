@@ -6,7 +6,8 @@ var Index = function() {
     createIndex function is used to get all the index
     @param {string} filepath- the path to the json file
   */
-  this.createIndex = function(filepath, jsonData) {
+  this.createIndex = function(filepath) {
+    jsonData = this.readJsonFile(filepath);
     //checks if the jsondata is accurate and not empty
     if(jsonData === null || jsonData.length === 0) {
       return false;
@@ -108,4 +109,18 @@ var Index = function() {
     return result;
   }
 
+  this.readJsonFile = function(path) {
+    //create xmlhttprequest to read file
+    var request = new XMLHttpRequest();
+    //once the ready state change, the function (callback) is executed
+    request.onreadystatechange = function() {
+      //is request completed and was it successful
+      if(request.readystate === XMLHttpRequest.DONE && request.status === 200) {
+        console.log(JSON.parse(request.responseText));
+      }
+    };
+    request.open('GET', path, true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.send();
+  }
 };
