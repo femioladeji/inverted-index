@@ -1,10 +1,6 @@
 "use strict";
 
 describe('Read book data', function() {
-
-});
-
-describe('Populate Index', function() {
   beforeEach(function() {
     this.indexInstance = new Index();
   });
@@ -12,6 +8,12 @@ describe('Populate Index', function() {
   it('should return false if an empty json was read', function() {
     var indexed = this.indexInstance.createIndex('df', [{}]);
     expect(indexed).toBeFalsy();
+  });
+});
+
+describe('Populate Index', function() {
+  beforeEach(function() {
+    this.indexInstance = new Index();
   });
 
   it('should add property wordIndex if a valid json is passed',
@@ -29,16 +31,16 @@ describe('Populate Index', function() {
       this.indexInstance.createIndex('dfa', book);
       var indexed = this.indexInstance.getIndex();
       var answer = {
-        'some': [1],
-        'the': [1, 2],
-        'hill': [1],
-        'may': [1],
-        'in': [1, 2],
-        'travis': [2],
-        'ci': [2],
-        'is': [2],
-        'not': [2],
-        'trust': [1]
+        'some': [0],
+        'the': [0, 1],
+        'hill': [0],
+        'may': [0],
+        'in': [0, 1],
+        'travis': [1],
+        'ci': [1],
+        'is': [1],
+        'not': [1],
+        'trust': [0]
       };
       expect(indexed).toEqual(answer);
   });
@@ -54,24 +56,29 @@ describe('Populate Index', function() {
         }
       ];
       var indexed = this.indexInstance.createIndex('dfa', book);
-      this.indexInstance.invalidDocuments.toEqual([1,2]);
+      expect(this.indexInstance.invalidDocuments).toEqual([0,1]);
     });
 });
 
 describe('Search index', function() {
-  it('should return an array of indices of the word searched', function() {
-    var book = [
-        {
-          'title': 'The hill',
-          'text': 'Some may trust in'
-        },
-        {
-          'title': 'Travis',
-          'text': 'The travis in CI is not in'
-        }
-      ];
-    this.indexInstance.createIndex('dfa', book);
-    var result = this.indexInstance.searchIndex('in');
-    expect(result).toEqual([0, 1]);
+  beforeEach(function() {
+    this.indexInstance = new Index();
+  });
+
+  it('should return an object with each word as keys and the value is an array of the document index',
+    function() {
+      var book = [
+          {
+            'title': 'The hill',
+            'text': 'Some may trust in'
+          },
+          {
+            'title': 'Travis',
+            'text': 'The travis in CI is not in'
+          }
+        ];
+      this.indexInstance.createIndex('dfa', book);
+      var result = this.indexInstance.searchIndex('in Trav');
+      expect(result).toEqual({'in':[0,1], 'trav':[1]});
   });
 })

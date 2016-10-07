@@ -12,8 +12,8 @@ var Index = function() {
       return false;
     }
 
-    var textArray = [], documentNum = 1, newData = [];
-    this.invalidDocs = [];
+    var textArray = [], documentNum = 0, newData = [];
+    this.invalidDocuments = [];
     //loop through each doc in the json
     for(var eachIndex in jsonData) {
       var aDocument = jsonData[eachIndex];
@@ -26,7 +26,7 @@ var Index = function() {
           textArray.push({documentNum, textTokens});
       } else {
         // keeping track of invalid documents
-        this.invalidDocs.push(documentNum);
+        this.invalidDocuments.push(documentNum);
       }
       documentNum++;
     }
@@ -75,8 +75,37 @@ var Index = function() {
     return indexDict;
   }
 
+  /**
+  getIndex method returns the indexed words and the documents they were found
+  @return {Object} the words index
+  */
   this.getIndex = function() {
     return this.wordIndex;
+  }
+
+  /**
+  searchIndex searches the indexed words to determine the documents that the
+  searchterms can be found
+  @params searchTerm {string, array} the search query
+  @return {object} each index is each searcykeyword. Each with an array value
+  of the document index
+  */
+  this.searchIndex = function(searchTerm) {
+    var indexToSearch = this.getIndex(), result = {};
+    //if it is a string of search terms then a split can be done
+    if(typeof searchTerm === 'string') {
+      var searchTokens = this.tokenize(searchTerm);
+    }
+    for(var indexCount in searchTokens) {
+      for(var eachToken in indexToSearch) {
+        //does the indexed token contain the searchkeyword
+        if(eachToken.includes(searchTokens[indexCount])) {
+          result[searchTokens[indexCount]] = indexToSearch[eachToken];
+          break;
+        }
+      }
+    }
+    return result;
   }
 
 };
