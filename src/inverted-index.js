@@ -5,16 +5,23 @@ var Index = function() {
   /**
     createIndex function is used to get all the index
     @param {string} filepath- the path to the json file
+    @param {function} callToGetIndex: callback function to get the index
   */
   this.createIndex = function(filepath, callToGetIndex) {
     var this_ = this;
     this.readJsonFile(filepath, function(jsonData) {
       this_.prepareJsonData(jsonData);
+        //the callback that gets the index from getIndex()
         callToGetIndex();
     });
 
   }
 
+  /**
+  prepareJsonData gets the json ready for indexing by tokenizing the
+  statements
+  @param {object} jsonData - the jsonData that has been read from the file
+  */
   this.prepareJsonData = function(jsonData) {
     //checks if the jsondata is accurate and not empty
     if(jsonData === null || jsonData.length === 0) {
@@ -32,6 +39,7 @@ var Index = function() {
           //convert the string of both title and text into array
           //and keep track of the document number
           var textTokens = this.tokenize(aDocument.text + " " + aDocument.title);
+          //the documentNum is the index of the doc that has been tokenied
           textArray.push({documentNum, textTokens});
       } else {
         // keeping track of invalid documents
@@ -39,7 +47,7 @@ var Index = function() {
       }
       documentNum++;
     }
-
+    this.numOfDocs = documentNum;
     this.wordIndex = this.constructIndex(textArray);
   }
 
@@ -69,6 +77,8 @@ var Index = function() {
         var token = tokenArray[i];
         //check if the word has already been indexed
         if(!indexDict.hasOwnProperty(token)) {
+          //the token is used as a key and initialized to an array
+          //the first element of the array is the index of the document
           indexDict[token] = [documents[each].documentNum];
         } else {
           //if the word has already been indexed
@@ -133,5 +143,13 @@ var Index = function() {
     request.open('GET', path, true);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send();
+  }
+
+  this.getDocuments = function() {
+    var docs = [];
+    for(var i = 0; i < this.numOfDocs; i++) {
+      docs.push(i);
+    }
+    return docs;
   }
 };

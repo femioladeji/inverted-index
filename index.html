@@ -60,6 +60,25 @@
             <br/><br/>
             <button class="btn btn-large btn-primary" ng-click="getIndex()">GET INDEX</button>
         </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="col-sm-6" ng-show="indexes">
+            <table class="table table-striped">
+              <thead>
+                <th>Tokens</th>
+                <th style="text-align:center" ng-repeat="i in documents">Document {{i+1}}</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="(key, value) in indexes">
+                  <td>{{key}}</td>
+                  <td ng-repeat="docnum in documents" style="text-align:center; font-weight:bold">
+                    <span ng-repeat="each in value" ng-show="{{each==docnum}}">X</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
     </div>
 </body>
 </html>
