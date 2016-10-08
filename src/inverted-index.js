@@ -6,11 +6,13 @@ var Index = function() {
     createIndex function is used to get all the index
     @param {string} filepath- the path to the json file
   */
-  this.createIndex = function(filepath) {
+  this.createIndex = function(filepath, callToGetIndex) {
     var this_ = this;
     this.readJsonFile(filepath, function(jsonData) {
       this_.prepareJsonData(jsonData);
+        callToGetIndex();
     });
+
   }
 
   this.prepareJsonData = function(jsonData) {
@@ -87,7 +89,8 @@ var Index = function() {
   @return {Object} the words index
   */
   this.getIndex = function() {
-    return this.wordIndex;
+    var returnValue = this.wordIndex === undefined ? false : this.wordIndex;
+    return returnValue;
   }
 
   /**
@@ -125,6 +128,7 @@ var Index = function() {
       if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
         callback(JSON.parse(request.responseText));
       }
+      
     };
     request.open('GET', path, true);
     request.setRequestHeader('Content-Type', 'application/json');

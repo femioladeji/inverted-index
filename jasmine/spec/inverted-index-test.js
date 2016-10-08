@@ -16,7 +16,7 @@ describe('Populate Index', function() {
     this.indexInstance = new Index();
   });
 
-  it('should add property wordIndex if a valid json is passed',
+  it('should return the right index value if a valid json is passed',
     function () {
       this.indexInstance.createIndex('testfiles/valid.json');
       var indexed = this.indexInstance.getIndex();
@@ -37,15 +37,7 @@ describe('Populate Index', function() {
 
   it('should add a property invalidDocuments if some docs don\'t have title or text',
     function() {
-      var book = [
-        {
-          'title': 'The hill',
-        },
-        {
-          'text': 'The travis in CI is not in'
-        }
-      ];
-      var indexed = this.indexInstance.createIndex('dfa', book);
+      var indexed = this.indexInstance.createIndex('testfiles/invalid.json');
       expect(this.indexInstance.invalidDocuments).toEqual([0,1]);
     });
 });

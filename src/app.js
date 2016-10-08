@@ -53,7 +53,10 @@ invApp.controller('invertedController', function($scope){
     $scope.getIndex = function() {
         console.log('button clicked');
         var invIndex = new Index();
-        invIndex.createIndex('books.json');
-        invIndex.getIndex();
+        var indexes;
+        invIndex.createIndex('books.json', function() {
+          indexes = invIndex.getIndex();
+          console.log(indexes);
+        });
     }
 });
