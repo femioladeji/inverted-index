@@ -18,17 +18,7 @@ describe('Populate Index', function() {
 
   it('should add property wordIndex if a valid json is passed',
     function () {
-      var book = [
-        {
-          'title': 'The hill',
-          'text': 'Some may trust in'
-        },
-        {
-          'title': 'Travis',
-          'text': 'The travis in CI is not in'
-        }
-      ];
-      this.indexInstance.createIndex('dfa', book);
+      this.indexInstance.createIndex('testfiles/valid.json');
       var indexed = this.indexInstance.getIndex();
       var answer = {
         'some': [0],

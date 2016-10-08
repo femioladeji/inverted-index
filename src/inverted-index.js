@@ -7,7 +7,13 @@ var Index = function() {
     @param {string} filepath- the path to the json file
   */
   this.createIndex = function(filepath) {
-    jsonData = this.readJsonFile(filepath);
+    var this_ = this;
+    this.readJsonFile(filepath, function(jsonData) {
+      this_.prepareJsonData(jsonData);
+    });
+  }
+
+  this.prepareJsonData = function(jsonData) {
     //checks if the jsondata is accurate and not empty
     if(jsonData === null || jsonData.length === 0) {
       return false;
@@ -109,14 +115,15 @@ var Index = function() {
     return result;
   }
 
-  this.readJsonFile = function(path) {
+  this.readJsonFile = function(path, callback) {
     //create xmlhttprequest to read file
     var request = new XMLHttpRequest();
+    var this_ = this;
     //once the ready state change, the function (callback) is executed
     request.onreadystatechange = function() {
       //is request completed and was it successful
-      if(request.readystate === XMLHttpRequest.DONE && request.status === 200) {
-        console.log(JSON.parse(request.responseText));
+      if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+        callback(JSON.parse(request.responseText));
       }
     };
     request.open('GET', path, true);
