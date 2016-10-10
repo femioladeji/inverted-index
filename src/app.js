@@ -36,20 +36,21 @@ invApp.service('uploadfile', ['$http', function($http) {
     this.uploadFileToUrl = function(file, uploadUrl) {
         var myFormData = new FormData;
         myFormData.append('uploadedjsonfile', file);
-        $http.post(uploadFileUrl, myFormData, {
+        $http.post(uploadUrl, myFormData, {
             transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
+            headers: {'Content-Type': 'multipart/form-data'}
         })
         .success(function() {
-
+          console.log('success');
         })
         .error(function() {
-
+          console.log('error');
         })
     };
 }]);
 
-invApp.controller('invertedController', ['$scope', 'uploadfile', function($scope){
+invApp.controller('invertedController', ['$scope', 'uploadfile',
+  function($scope, uploadfile){
     $scope.getIndex = function() {
         var invIndex = new Index();
         invIndex.createIndex('books.json', function() {
@@ -59,7 +60,7 @@ invApp.controller('invertedController', ['$scope', 'uploadfile', function($scope
     }
 
     $scope.performupload = function() {
-      var file = $scope.myFile;
+      var file = $scope.jsonfile;
       console.log(file);
       uploadfile.uploadFileToUrl(file, '/files');
     }

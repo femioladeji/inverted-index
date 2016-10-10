@@ -51,9 +51,8 @@
             <hr/>
             <form class="form-inline">
                 <div class="form-group">
-                    <label for="uploadfile" class="btn btn-primary">Upload JSON File</label>
-                    <input class="form-control" type="file" file-model="jsonfile" id="uploadfile" style="display:none">
-
+                    <input class="form-control" type="file" id="uploadfile" file-model="jsonfile">
+                    <button class="btn btn-primary" ng-click="performupload()" >Upload JSON File</label>
                 </div>
             </form>
             <div class="clearfix"></div>
