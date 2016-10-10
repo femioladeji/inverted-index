@@ -2,8 +2,6 @@
 <html lang="en" ng-app="invertedIndex">
 <head>
     <title>INVERTED INDEX</title>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -11,13 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
-
-    <script type="text/javascript" src="src/inverted-index.js"></script>
-
-    <script type="text/javascript" src="src/app.js"></script>
+    
 </head>
 <body ng-controller="invertedController">
     <!-- beginning of the header -->
@@ -51,13 +43,26 @@
             <hr/>
             <form class="form-inline">
                 <div class="form-group">
-                    <input class="form-control" type="file" id="uploadfile" file-model="jsonfile">
-                    <button class="btn btn-primary" ng-click="performupload()" >Upload JSON File</label>
+                    
+                    <label class="btn btn-primary" >Upload JSON File
+                      <input class="form-control" style="display:none" type="file" id="uploadfile">
+                    </label>
                 </div>
             </form>
             <div class="clearfix"></div>
             <br/><br/>
-            <button class="btn btn-large btn-primary" ng-click="getIndex()">GET INDEX</button>
+            <form class="form-inline">
+              <div class="form-group">
+                <select class="form-control col-sm-2">
+                  <option ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-large btn-primary" ng-click="getIndex()">GET INDEX</button>
+              </div>
+            </form>
+            
+            
         </div>
         <div class="clearfix"></div>
         <div class="row">
@@ -80,4 +85,13 @@
         </div>
     </div>
 </body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+<script type="text/javascript" src="src/inverted-index.js"></script>
+
+<script type="text/javascript" src="src/app.js"></script>
 </html>
