@@ -4,17 +4,14 @@ var Index = function() {
 
   /**
     createIndex function is used to get all the index
-    @param {string} filepath- the path to the json file
-    @param {function} callToGetIndex: callback function to get the index
+    @param {object} jsonData- the json data to index
   */
-  this.createIndex = function(filepath, callToGetIndex) {
-    var this_ = this;
-    this.readJsonFile(filepath, function(jsonData) {
-      this_.prepareJsonData(jsonData);
-        //the callback that gets the index from getIndex()
-        callToGetIndex();
-    });
-
+  this.createIndex = function(jsonData) {
+    //checks if the jsondata is accurate and not empty
+    if(jsonData === null || jsonData.length === 0) {
+      return false;
+    }
+    this.prepareJsonData(jsonData);
   }
 
   /**
@@ -23,10 +20,6 @@ var Index = function() {
   @param {object} jsonData - the jsonData that has been read from the file
   */
   this.prepareJsonData = function(jsonData) {
-    //checks if the jsondata is accurate and not empty
-    if(jsonData === null || jsonData.length === 0) {
-      return false;
-    }
 
     var textArray = [], documentNum = 0, newData = [];
     this.invalidDocuments = [];

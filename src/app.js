@@ -10,11 +10,10 @@ invApp.controller('invertedController', ['$scope', function($scope){
   $scope.uploadedFiles = {};
   $scope.getIndex = function() {
     var invIndex = new Index();
-    invIndex.createIndex(uploadedFiles);
-    // invIndex.createIndex('books.json', function() {
-    //   $scope.indexes = invIndex.getIndex();
-    //   $scope.documents = invIndex.getDocuments();
-    // });
+    var fileChoice = $scope.uploadSelected;
+    invIndex.createIndex($scope.uploadedFiles[fileChoice]);
+    $scope.indexes = invIndex.getIndex();
+    $scope.documents = invIndex.getDocuments();
   }
 
   document.getElementById('uploadfile').addEventListener('change', readJson);
@@ -39,6 +38,5 @@ invApp.controller('invertedController', ['$scope', function($scope){
         $scope.$apply();
       }
     }
-    console.log($scope.uploadedFiles);
   }
 }]);

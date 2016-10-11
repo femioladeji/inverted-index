@@ -53,8 +53,8 @@
             <br/><br/>
             <form class="form-inline">
               <div class="form-group">
-                <select class="form-control col-sm-2">
-                  <option ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                <select class="form-control col-sm-2" ng-model="uploadSelected">
+                  <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
                 </select>
               </div>
               <div class="form-group">
