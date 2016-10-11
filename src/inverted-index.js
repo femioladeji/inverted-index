@@ -114,7 +114,7 @@ var Index = function() {
       for(var eachToken in indexToSearch) {
         //does the indexed token contain the searchkeyword
         if(eachToken.includes(searchTokens[indexCount])) {
-          result[searchTokens[indexCount]] = indexToSearch[eachToken];
+          result[eachToken] = indexToSearch[eachToken];
           break;
         }
       }
