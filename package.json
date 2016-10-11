@@ -4,7 +4,7 @@
   "description": "An inverted index js app that aids quick searching",
   "main": "index.js",
   "scripts": {
-    "test": "./node_packages/.bin/jasmine-node jasmine/spec"
+    "test": "node node_modules/jasmine-node jasmine/spec"
   },
   "repository": {
     "type": "git",
