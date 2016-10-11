@@ -4,7 +4,7 @@
   "description": "An inverted index js app that aids quick searching",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_packages/.bin/jasmine-node jasmine/spec"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/femidotexe/inverted-index/issues"
   },
-  "homepage": "https://github.com/femidotexe/inverted-index#readme"
+  "homepage": "https://github.com/femidotexe/inverted-index#readme",
+  "dependencies": {
+    "jasmine-node": "^1.14.5"
+  }
 }
