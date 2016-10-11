@@ -12,6 +12,7 @@ var Index = function() {
       return false;
     }
     this.prepareJsonData(jsonData);
+    return true;
   }
 
   /**

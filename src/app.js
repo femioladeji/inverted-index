@@ -11,9 +11,18 @@ invApp.controller('invertedController', ['$scope', function($scope){
   $scope.getIndex = function() {
     var invIndex = new Index();
     var fileChoice = $scope.uploadSelected;
-    invIndex.createIndex($scope.uploadedFiles[fileChoice]);
-    $scope.indexes = invIndex.getIndex();
-    $scope.documents = invIndex.getDocuments();
+    if(invIndex.createIndex($scope.uploadedFiles[fileChoice])) {
+      var indexes = invIndex.getIndex();
+      if (indexes.length === 0) {
+        alert('Your documents must have title and text');
+      } else {
+        $scope.indexes = indexes;
+      }
+      $scope.documents = invIndex.getDocuments();
+    } else {
+      alert('Your json document must not be empty');
+    }
+    
   }
 
   document.getElementById('uploadfile').addEventListener('change', readJson);
@@ -33,9 +42,14 @@ invApp.controller('invertedController', ['$scope', function($scope){
       readFile.readAsText(fileDetails);
       readFile.onload = function(file) {
         var content = file.target.result;
-        $scope.uploadedFiles[fileDetails.name] = JSON.parse(content);
-        //to make angular update the view
-        $scope.$apply();
+        try {
+          $scope.uploadedFiles[fileDetails.name] = JSON.parse(content);
+          //to make angular update the view
+          $scope.$apply();
+        } catch(e) {
+          alert('There is an error, with the json file');
+        }
+        
       }
     }
   }
