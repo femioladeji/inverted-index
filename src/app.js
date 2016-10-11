@@ -24,6 +24,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
       $scope.indexes = indexes;
       $scope.uploadedFiles[fileChoice].indexObject = invIndex;
       $scope.documents = invIndex.getDocuments();
+      $scope.indexDisplay = true;
     } else {
       alert('Your json document must not be empty');
     }
@@ -35,6 +36,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
         searchQuery = $scope.searchTerm,
         result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex(searchQuery);
     $scope.indexes = result;
+    $scope.indexDisplay = false;
     // $scope.$apply();
   }
 

@@ -84,6 +84,10 @@
         <br/>
         <div class="row">
           <div class="col-sm-6 col-sm-offset-3" ng-show="indexes">
+            <h2>
+              <span ng-if="indexDisplay">Showing index for {{uploadSelected}}</span>
+              <span ng-if="!indexDisplay">Search result for "{{searchTerm}}" in "{{uploadToSearch}}"</span>
+            </h2>
             <table class="table table-striped">
               <thead>
                 <th>Tokens</th>
