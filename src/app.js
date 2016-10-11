@@ -17,12 +17,18 @@ invApp.controller('invertedController', ['$scope', function($scope){
         alert('Your documents must have title and text');
       } else {
         $scope.indexes = indexes;
+        $scope.uploadedFiles[fileChoice].index = indexes;
       }
       $scope.documents = invIndex.getDocuments();
     } else {
       alert('Your json document must not be empty');
     }
     
+  }
+
+  $scope.searchIndex = function() {
+    var invIndex = new Index();
+    var fileChoice = $scope.uploadSelected;
   }
 
   document.getElementById('uploadfile').addEventListener('change', readJson);
