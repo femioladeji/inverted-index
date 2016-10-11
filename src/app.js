@@ -34,7 +34,8 @@ invApp.controller('invertedController', ['$scope', function($scope){
     var fileChoice = $scope.uploadSelected,
         searchQuery = $scope.searchTerm,
         result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex(searchQuery);
-    console.log(result);
+    $scope.indexes = result;
+    // $scope.$apply();
   }
 
   document.getElementById('uploadfile').addEventListener('change', readJson);
