@@ -60,6 +60,15 @@
               <div class="form-group">
                 <button class="btn btn-large btn-primary" ng-click="getIndex()">GET INDEX</button>
               </div>
+
+              <div class="form-group col-md-offset-2">
+                <select class="form-control col-sm-2" ng-model="uploadToSearch">
+                  <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <button class="btn btn-large btn-primary" ng-click="searchIndex()">Search INDEX</button>
+              </div>
             </form>
             
             
