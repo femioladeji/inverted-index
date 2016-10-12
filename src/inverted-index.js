@@ -105,10 +105,16 @@ var Index = function() {
   searchIndex searches the indexed words to determine the documents that the
   searchterms can be found
   @params searchTerm {string, array} the search query
-  @return {object} each index is each searcykeyword. Each with an array value
-  of the document index
+  @return {object|boolean} it returns boolean if the searchTerm is empty and 
+  it retrns object if it is not. Each index is each searcykeyword.
+  Each with an array value of the document index
   */
   this.searchIndex = function(searchTerm) {
+    if((typeof searchTerm === 'string' && searchTerm.trim() === '') ||
+      searchTerm.length === 0) {
+        return false;
+    }
+
     var indexToSearch = this.getIndex(), result = {};
     //if it is a string of search terms then a split can be done
     if(typeof searchTerm === 'string') {

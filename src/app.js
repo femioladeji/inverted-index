@@ -35,6 +35,10 @@ invApp.controller('invertedController', ['$scope', function($scope){
     var fileChoice = $scope.uploadSelected,
         searchQuery = $scope.searchTerm,
         result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex(searchQuery);
+    if(!result) {
+      alert('Invalid search query');
+      return false;
+    }
     $scope.indexes = result;
     $scope.indexDisplay = false;
     // $scope.$apply();
