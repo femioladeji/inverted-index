@@ -26,10 +26,11 @@ var Index = function() {
     var textArray = [], documentNum = 0, newData = [];
     this.invalidDocuments = [];
     //loop through each doc in the json
+    var aDocument = [];
     for(var eachIndex in jsonData) {
-      var aDocument = jsonData[eachIndex];
+      aDocument = jsonData[eachIndex];
       //check if each doc has the text and title property
-      if(aDocument.hasOwnProperty('text') && 
+      if(aDocument.hasOwnProperty('text') &&
         aDocument.hasOwnProperty('title')) {
           //convert the string of both title and text into array
           //and keep track of the document number
@@ -85,7 +86,6 @@ var Index = function() {
         if(indexDict[token].indexOf(documents[each].documentNum) === -1) {
           indexDict[token].push(documents[each].documentNum);
         }
-        
       }
     }
 
@@ -105,7 +105,7 @@ var Index = function() {
   searchIndex searches the indexed words to determine the documents that the
   searchterms can be found
   @params searchTerm {string, array} the search query
-  @return {object|boolean} it returns boolean if the searchTerm is empty and 
+  @return {object|boolean} it returns boolean if the searchTerm is empty and
   it retrns object if it is not. Each index is each searcykeyword.
   Each with an array value of the document index
   */
@@ -132,23 +132,26 @@ var Index = function() {
     return result;
   }
 
-  this.readJsonFile = function(path, callback) {
-    //create xmlhttprequest to read file
-    var request = new XMLHttpRequest();
-    var this_ = this;
-    //once the ready state change, the function (callback) is executed
-    request.onreadystatechange = function() {
-      //is request completed and was it successful
-      if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-        callback(JSON.parse(request.responseText));
-      }
-      
-    };
-    request.open('GET', path, true);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.send();
-  }
+  // this.readJsonFile = function(path, callback) {
+  //   //create xmlhttprequest to read file
+  //   var request = new XMLHttpRequest();
+  //   var this_ = this;
+  //   //once the ready state change, the function (callback) is executed
+  //   request.onreadystatechange = function() {
+  //     //is request completed and was it successful
+  //     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+  //       callback(JSON.parse(request.responseText));
+  //     }
+  //   };
+  //   request.open('GET', path, true);
+  //   request.setRequestHeader('Content-Type', 'application/json');
+  //   request.send();
+  // }
 
+  /**
+  getDocuments get an array of the documents index e.g [0, 1, 2, 3]
+  @return {array} an array of the documents index
+  */
   this.getDocuments = function() {
     var docs = [];
     for(var i = 0; i < this.numOfDocs; i++) {
