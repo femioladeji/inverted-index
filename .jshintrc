@@ -22,5 +22,6 @@
   },
   "jasmine": true,
   "-W117": true,
-  "multistr":true
+  "multistr": true,
+  "mocha": true
 }
