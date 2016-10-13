@@ -8,6 +8,7 @@ var invApp = angular.module('invertedIndex', []);
 
 invApp.controller('invertedController', ['$scope', function($scope){
   $scope.uploadedFiles = {};
+  $scope.allFlag = false;
   $scope.getIndex = function() {
     var invIndex = new Index();
     var fileChoice = $scope.uploadSelected;
@@ -75,6 +76,11 @@ invApp.controller('invertedController', ['$scope', function($scope){
         }
         $scope.uploadedFiles[fileDetails.name] = {};
         $scope.uploadedFiles[fileDetails.name].text = content;
+        //to check if two files or above have been uploaded
+        //so that an option to search all files can be added
+        if(Object.keys($scope.uploadedFiles).length > 1) {
+          $scope.allFlag = true;
+        }
         //to make angular update the view
         $scope.$apply();
       }

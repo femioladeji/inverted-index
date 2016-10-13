@@ -66,6 +66,7 @@
               <div class="form-group">
                 <select class="form-control" ng-model="uploadToSearch">
                   <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                  <option value="all" ng-if="allFlag">All files</option>
                 </select>
               </div>
 
