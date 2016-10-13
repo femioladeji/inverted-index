@@ -12,13 +12,10 @@ describe('Read book data', function() {
 });
 
 describe('Populate Index', function() {
+  var valid, invalid;
   beforeEach(function() {
     this.indexInstance = new Index();
-  });
-
-  it('should return the right index value if a valid json is passed',
-    function () {
-      var valid = [
+    valid = [
         {
           "title": "The hill",
           "text": "Some may trust in"
@@ -29,6 +26,21 @@ describe('Populate Index', function() {
           "text": "The travis in CI is not in."
         }
       ];
+      invalid = [
+        {
+          "text": "Some may trust in"
+        },
+
+        {
+          "title": "Travis"
+        }
+      ];
+  });
+  it('should create index once the json file has been read', function() {
+
+  })
+  it('should return the right index value if a valid json is passed',
+    function () {
       this.indexInstance.createIndex(valid);
       var indexed = this.indexInstance.getIndex();
       var answer = {
@@ -48,16 +60,6 @@ describe('Populate Index', function() {
 
   it('should add a property invalidDocuments if some docs don\'t have title or text',
     function() {
-      var invalid = [
-        {
-          "text": "Some may trust in"
-        },
-
-        {
-          "title": "Travis"
-        }
-      ];
-
       var indexed = this.indexInstance.createIndex(invalid);
       expect(this.indexInstance.invalidDocuments).toEqual([0,1]);
     });
