@@ -36,9 +36,12 @@ describe('Populate Index', function() {
         }
       ];
   });
-  it('should create index once the json file has been read', function() {
 
-  })
+  it('should create index once the json file has been read', function() {
+    this.indexInstance.createIndex(valid);
+    expect(this.indexInstance.getIndex()).toBeDefined();
+  });
+
   it('should return the right index value if a valid json is passed',
     function () {
       this.indexInstance.createIndex(valid);
