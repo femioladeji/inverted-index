@@ -9,6 +9,11 @@ var Index = function() {
   */
   this.createIndex = function(jsonData) {
     //checks if the jsondata is accurate and not empty
+    try {
+      jsonData = JSON.parse(jsonData);
+    } catch(e) {
+      return false;
+    }
     if(jsonData === null || jsonData.length === 0) {
       return false;
     }

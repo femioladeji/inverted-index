@@ -15,7 +15,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
       alert('Select a file to get index');
       return false;
     }
-    if(invIndex.createIndex($scope.uploadedFiles[fileChoice])) {
+    if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text)) {
       var indexes = invIndex.getIndex();
       if (indexes.length === 0) {
         alert('Your documents must have title and text');
@@ -61,14 +61,10 @@ invApp.controller('invertedController', ['$scope', function($scope){
       readFile.readAsText(fileDetails);
       readFile.onload = function(file) {
         var content = file.target.result;
-        try {
-          $scope.uploadedFiles[fileDetails.name] = JSON.parse(content);
-          //to make angular update the view
-          $scope.$apply();
-        } catch(e) {
-          alert('There is an error, with the json file');
-        }
-        
+        $scope.uploadedFiles[fileDetails.name] = {};
+        $scope.uploadedFiles[fileDetails.name].text = content;
+        //to make angular update the view
+        $scope.$apply();
       }
     }
   }
