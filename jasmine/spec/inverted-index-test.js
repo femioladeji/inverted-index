@@ -61,34 +61,20 @@ describe('Search index', function() {
     this.indexInstance = new Index();
   });
 
-  it('should return an object with each word as keys and the value is an array of the document index',
-    function() {
-      var book = [
-          {
-            'title': 'The hill',
-            'text': 'Some may trust in'
-          },
-          {
-            'title': 'Travis',
-            'text': 'The travis in CI is not in'
-          }
-        ];
+  it('should return an object with each word as keys and the value is an \
+    array of the document index', function() {
+      var book = '[{"title": "The hill","text": "Some may trust in"}, \
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
+
       this.indexInstance.createIndex(book);
       var result = this.indexInstance.searchIndex('in Trav');
       expect(result).toEqual({'in':[0,1], 'travis':[1]});
   });
 
-  it('should return false if an empty string is passed as search query', function() {
-    var book = [
-          {
-            'title': 'The hill',
-            'text': 'Some may trust in'
-          },
-          {
-            'title': 'Travis',
-            'text': 'The travis in CI is not in'
-          }
-        ];
+  it('should return false if an empty string is passed as search query',
+    function() {
+      var book = "[{'title': 'The hill', 'text': 'Some may trust in'}, \
+          {'title': 'Travis', 'text': 'The travis in CI is not in'}]";
       this.indexInstance.createIndex(book);
       var result = this.indexInstance.searchIndex('    ');
       expect(result).toBeFalsy();
