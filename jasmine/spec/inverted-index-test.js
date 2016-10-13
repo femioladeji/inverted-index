@@ -5,6 +5,11 @@ describe('Read book data', function() {
     this.indexInstance = new Index();
   });
 
+  it('should return false if an invalid JSON array was read', function() {
+    var indexed = this.indexInstance.createIndex('invalid json as a string');
+    expect(indexed).toBeFalsy();
+  })
+
   it('should return false if an empty json was read', function() {
     var indexed = this.indexInstance.createIndex([]);
     expect(indexed).toBeFalsy();
