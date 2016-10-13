@@ -4,6 +4,7 @@
   "description": "An inverted index js app that aids quick searching",
   "main": "index.js",
   "scripts": {
+    "start": "gulp",
     "test": "node node_modules/jasmine-node jasmine/spec"
   },
   "repository": {
@@ -26,5 +27,9 @@
   "homepage": "https://github.com/femidotexe/inverted-index#readme",
   "dependencies": {
     "jasmine-node": "^1.14.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
   }
 }
