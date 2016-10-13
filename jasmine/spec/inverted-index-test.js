@@ -8,7 +8,7 @@ describe('Read book data', function() {
   it('should return false if an invalid JSON array was read', function() {
     var indexed = this.indexInstance.createIndex('invalid json as a string');
     expect(indexed).toBeFalsy();
-  })
+  });
 
   it('should return false if an empty json was read', function() {
     var indexed = this.indexInstance.createIndex([]);
@@ -20,26 +20,9 @@ describe('Populate Index', function() {
   var valid, invalid;
   beforeEach(function() {
     this.indexInstance = new Index();
-    valid = [
-        {
-          "title": "The hill",
-          "text": "Some may trust in"
-        },
-
-        {
-          "title": "Travis",
-          "text": "The travis in CI is not in."
-        }
-      ];
-      invalid = [
-        {
-          "text": "Some may trust in"
-        },
-
-        {
-          "title": "Travis"
-        }
-      ];
+    valid = '[{"title": "The hill","text": "Some may trust in"},{"title": \
+    "Travis","text": "The travis in CI is not in."}]';
+    invalid = '[{"text": "Some may trust in"},{"title": "Travis"}]';
   });
 
   it('should create index once the json file has been read', function() {
