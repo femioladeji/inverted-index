@@ -61,6 +61,12 @@ invApp.controller('invertedController', ['$scope', function($scope){
       readFile.readAsText(fileDetails);
       readFile.onload = function(file) {
         var content = file.target.result;
+        try {
+          JSON.parse(content);
+        } catch(e) {
+          alert('Invalid JSON file');
+          return false;
+        }
         $scope.uploadedFiles[fileDetails.name] = {};
         $scope.uploadedFiles[fileDetails.name].text = content;
         //to make angular update the view
