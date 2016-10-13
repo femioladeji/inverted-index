@@ -21,5 +21,6 @@
     "window":true
   },
   "jasmine": true,
-  "-W117": true
+  "-W117": true,
+  "multistr":true
 }
