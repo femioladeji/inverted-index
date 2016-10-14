@@ -2,12 +2,15 @@
 
 var Index = function() {
 
+  this.filesIndexed = {};
+
   /**
     createIndex function is used to get all the index
     @param {object} jsonData- the json data to index
+    @parame {string} filename- the name of the file to be indexed
     @return {boolean} true or false if the createIndex was successful
   */
-  this.createIndex = function(jsonData) {
+  this.createIndex = function(jsonData, filename) {
     //checks if the jsondata is accurate and not empty
     try {
       jsonData = JSON.parse(jsonData);
@@ -17,7 +20,8 @@ var Index = function() {
     if(jsonData === null || jsonData.length === 0) {
       return false;
     }
-    this.prepareJsonData(jsonData);
+    this.filesIndexed[filename] = {};
+    this.prepareJsonData(jsonData, filename);
     return true;
   }
 
@@ -25,11 +29,11 @@ var Index = function() {
   prepareJsonData gets the json ready for indexing by tokenizing the
   statements
   @param {object} jsonData - the jsonData that has been read from the file
+  @param {string} filename - the name of the file uploaded 
   */
-  this.prepareJsonData = function(jsonData) {
+  this.prepareJsonData = function(jsonData, filename) {
 
     var textArray = [], documentNum = 0, newData = [];
-    this.invalidDocuments = [];
     //loop through each doc in the json
     var aDocument = [];
     for(var eachIndex in jsonData) {
@@ -43,16 +47,15 @@ var Index = function() {
           //the documentNum is the index of the doc that has been tokenied
           textArray.push({documentNum, textTokens});
       } else {
-        // keeping track of invalid documents
-        this.invalidDocuments.push(documentNum);
+        return false;
       }
       documentNum++;
     }
-    //saves the number of valid documents
-    this.numOfDocs = documentNum;
+    //saves the number of documents
+    this.filesIndexed[filename].numOfDocs = documentNum;
     //adds the attribute wordIndex to the class instance if the constructIndex
     //was successful
-    this.wordIndex = this.constructIndex(textArray);
+    this.filesIndexed[filename].index = this.constructIndex(textArray);
   }
 
   /**
@@ -99,10 +102,11 @@ var Index = function() {
 
   /**
   getIndex method returns the indexed words and the documents they were found
+  @filename {string} name of the file to get its index
   @return {Object} the words index
   */
-  this.getIndex = function() {
-    var returnValue = this.wordIndex === undefined ? false : this.wordIndex;
+  this.getIndex = function(filename) {
+    var returnValue = this.filesIndexed[filename].index === undefined ? false : this.filesIndexed[filename].index;
     return returnValue;
   }
 
@@ -110,17 +114,18 @@ var Index = function() {
   searchIndex searches the indexed words to determine the documents that the
   searchterms can be found
   @params searchTerm {string, array} the search query
+  @params filename {string}- the name of the file to search its index
   @return {object|boolean} it returns boolean if the searchTerm is empty and
   it retrns object if it is not. Each index is each searcykeyword.
   Each with an array value of the document index
   */
-  this.searchIndex = function(searchTerm) {
+  this.searchIndex = function(searchTerm, filename) {
     if((typeof searchTerm === 'string' && searchTerm.trim() === '') ||
       searchTerm.length === 0) {
         return false;
     }
 
-    var indexToSearch = this.getIndex(), result = {};
+    var indexToSearch = this.filesIndexed[filename].index, result = {};
     //if it is a string of search terms then a split can be done
     if(typeof searchTerm === 'string') {
       var searchTokens = this.tokenize(searchTerm);

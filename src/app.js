@@ -9,14 +9,14 @@ var invApp = angular.module('invertedIndex', []);
 invApp.controller('invertedController', ['$scope', function($scope){
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
+  var invIndex = new Index();
   $scope.getIndex = function() {
-    var invIndex = new Index();
     var fileChoice = $scope.uploadSelected;
     if (fileChoice === undefined) {
       alert('Select a file to get index');
       return false;
     }
-    if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text)) {
+    if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text), fileChoice) {
       var indexes = invIndex.getIndex();
       if (indexes.length === 0) {
         alert('Your file must have title and text');
@@ -34,13 +34,21 @@ invApp.controller('invertedController', ['$scope', function($scope){
   }
 
   $scope.searchIndex = function() {
-    var fileChoice = $scope.uploadSelected;
+    var fileChoice = $scope.uploadToSearch;
+    console.log(fileChoice);
     $scope.searchQuery = $scope.searchTerm;
-    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice)) {
+    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice != 'all') {
       alert('The file has not been indexed');
       return false;
     }
-    var result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex($scope.searchQuery);
+    var result;
+    if(fileChoice === 'all') {
+      console.log($scope.uploadedFiles);
+    } else {
+      result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex($scope.searchQuery);
+    }
+
+    
     if(!result) {
       alert('Invalid search query');
       return false;
