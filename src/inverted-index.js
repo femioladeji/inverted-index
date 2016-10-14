@@ -17,12 +17,18 @@ var Index = function() {
     } catch(e) {
       return false;
     }
+
     if(jsonData === null || jsonData.length === 0) {
       return false;
     }
+
     this.filesIndexed[filename] = {};
-    this.prepareJsonData(jsonData, filename);
+    if(!this.prepareJsonData(jsonData, filename)) {
+      delete this.filesIndexed[filename];
+      return false;
+    }
     return true;
+
   }
 
   /**
@@ -56,6 +62,8 @@ var Index = function() {
     //adds the attribute wordIndex to the class instance if the constructIndex
     //was successful
     this.filesIndexed[filename].index = this.constructIndex(textArray);
+
+    return true;
   }
 
   /**
@@ -125,7 +133,7 @@ var Index = function() {
         return false;
     }
 
-    var indexToSearch = this.filesIndexed[filename].index, result = {};
+    var indexToSearch = this.getIndex(filename), result = {};
     //if it is a string of search terms then a split can be done
     if(typeof searchTerm === 'string') {
       var searchTokens = this.tokenize(searchTerm);
@@ -160,11 +168,12 @@ var Index = function() {
 
   /**
   getDocuments get an array of the documents index e.g [0, 1, 2, 3]
+  @param {string} - name of the file to get its document
   @return {array} an array of the documents index
   */
-  this.getDocuments = function() {
+  this.getDocuments = function(filename) {
     var docs = [];
-    for(var i = 0; i < this.numOfDocs; i++) {
+    for(var i = 0; i < this.filesIndexed[filename].numOfDocs; i++) {
       docs.push(i);
     }
     return docs;

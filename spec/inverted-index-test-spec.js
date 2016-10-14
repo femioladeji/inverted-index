@@ -6,12 +6,12 @@ describe('Read book data', function() {
   });
 
   it('should return false if an invalid JSON array was read', function() {
-    var indexed = this.indexInstance.createIndex('invalid json as a string');
+    var indexed = this.indexInstance.createIndex('invalid json as a string', 'invalid.json');
     expect(indexed).toBeFalsy();
   });
 
   it('should return false if an empty json was read', function() {
-    var indexed = this.indexInstance.createIndex([]);
+    var indexed = this.indexInstance.createIndex([], 'invalid.json');
     expect(indexed).toBeFalsy();
   });
 });
@@ -26,14 +26,14 @@ describe('Populate Index', function() {
   });
 
   it('should create index once the json file has been read', function() {
-    this.indexInstance.createIndex(valid);
-    expect(this.indexInstance.getIndex()).toBeDefined();
+    this.indexInstance.createIndex(valid, 'valid.json');
+    expect(this.indexInstance.getIndex('valid.json')).toBeDefined();
   });
 
   it('should return the right index value if a valid json is passed',
     function () {
-      this.indexInstance.createIndex(valid);
-      var indexed = this.indexInstance.getIndex();
+      this.indexInstance.createIndex(valid, 'valid.json');
+      var indexed = this.indexInstance.getIndex('valid.json');
       var answer = {
         'some': [0],
         'the': [0, 1],
@@ -51,8 +51,8 @@ describe('Populate Index', function() {
 
   it('should add a property invalidDocuments if some docs don\'t have title or text',
     function() {
-      var indexed = this.indexInstance.createIndex(invalid);
-      expect(this.indexInstance.invalidDocuments).toEqual([0,1]);
+      var indexed = this.indexInstance.createIndex(invalid, 'invalid.json');
+      expect(indexed).toBeFalsy();
     });
 });
 
@@ -66,8 +66,8 @@ describe('Search index', function() {
       var book = '[{"title": "The hill","text": "Some may trust in"}, \
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
-      this.indexInstance.createIndex(book);
-      var result = this.indexInstance.searchIndex('in Trav');
+      this.indexInstance.createIndex(book, 'book.json');
+      var result = this.indexInstance.searchIndex('in Trav', 'book.json');
       expect(result).toEqual({'in':[0,1], 'travis':[1]});
   });
 
@@ -75,7 +75,7 @@ describe('Search index', function() {
     function() {
       var book = "[{'title': 'The hill', 'text': 'Some may trust in'}, \
           {'title': 'Travis', 'text': 'The travis in CI is not in'}]";
-      this.indexInstance.createIndex(book);
+      this.indexInstance.createIndex(book, 'book.json');
       var result = this.indexInstance.searchIndex('    ');
       expect(result).toBeFalsy();
   });

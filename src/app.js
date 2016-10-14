@@ -16,15 +16,15 @@ invApp.controller('invertedController', ['$scope', function($scope){
       alert('Select a file to get index');
       return false;
     }
-    if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text), fileChoice) {
-      var indexes = invIndex.getIndex();
+
+    if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
+      var indexes = invIndex.getIndex(fileChoice);
       if (indexes.length === 0) {
         alert('Your file must have title and text');
         return false;
       }
       $scope.indexes = indexes;
-      $scope.uploadedFiles[fileChoice].indexObject = invIndex;
-      $scope.documents = invIndex.getDocuments();
+      $scope.documents = invIndex.getDocuments(fileChoice);
       $scope.indexDisplay = true;
       $scope.indexedFile = fileChoice;
     } else {
@@ -35,7 +35,6 @@ invApp.controller('invertedController', ['$scope', function($scope){
 
   $scope.searchIndex = function() {
     var fileChoice = $scope.uploadToSearch;
-    console.log(fileChoice);
     $scope.searchQuery = $scope.searchTerm;
     if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice != 'all') {
       alert('The file has not been indexed');
@@ -43,7 +42,6 @@ invApp.controller('invertedController', ['$scope', function($scope){
     }
     var result;
     if(fileChoice === 'all') {
-      console.log($scope.uploadedFiles);
     } else {
       result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex($scope.searchQuery);
     }
