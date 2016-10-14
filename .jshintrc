@@ -9,11 +9,10 @@
   "indent": 2,
   "newcap": true,
   "noarg": true,
-  "quotmark": "double",
   "regexp": true,
   "undef": false,
   "unused": false,
-  "strict": false,
+  "strict": true,
   "trailing": true,
   "smarttabs": true,
   "globals": {

@@ -3,7 +3,7 @@
 The file is concerned about maintaining the angular
 part of the app
 */
-let invApp = angular.module('invertedIndex', []);
+let invApp = angular.module("invertedIndex", []);
 
 
 invApp.controller('invertedController', ['$scope', function($scope){
@@ -25,9 +25,9 @@ invApp.controller('invertedController', ['$scope', function($scope){
       $scope.indexDisplay = true;
       $scope.indexed = [
         {
-          'indexes':indexes,
-          'documents':invIndex.getDocuments(fileChoice),
-          'indexedFile':fileChoice
+          indexes: indexes,
+          documents: invIndex.getDocuments(fileChoice),
+          indexedFile: fileChoice
         }
       ];
 
@@ -46,12 +46,12 @@ invApp.controller('invertedController', ['$scope', function($scope){
         and text property');
     }
     
-  }
+  };
 
   $scope.searchIndex = function() {
     let fileChoice = $scope.uploadToSearch;
     $scope.searchQuery = $scope.searchTerm;
-    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice != 'all') {
+    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice !== 'all') {
       alert('The file has not been indexed');
       return false;
     }
@@ -65,7 +65,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
 
     $scope.indexed = result;
     $scope.indexDisplay = false;
-  }
+  };
 
   document.getElementById('uploadfile').addEventListener('change', readJson);
 
@@ -95,7 +95,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
         
         //to make angular update the view
         $scope.$apply();
-      }
+      };
     }
   }
 }]);
