@@ -34,13 +34,13 @@ invApp.controller('invertedController', ['$scope', function($scope){
   }
 
   $scope.searchIndex = function() {
-    var fileChoice = $scope.uploadSelected,
-        searchQuery = $scope.searchTerm;
+    var fileChoice = $scope.uploadSelected;
+    $scope.searchQuery = $scope.searchTerm;
     if(!$scope.uploadedFiles.hasOwnProperty(fileChoice)) {
       alert('The file has not been indexed');
       return false;
     }
-    var result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex(searchQuery);
+    var result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex($scope.searchQuery);
     if(!result) {
       alert('Invalid search query');
       return false;
