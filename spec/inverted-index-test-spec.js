@@ -61,14 +61,21 @@ describe('Search index', function() {
     this.indexInstance = new Index();
   });
 
-  it('should return an object with each word as keys and the value is an \
+  it('should return an array of object(s) with each word as keys and the value is an \
     array of the document index', function() {
       var book = '[{"title": "The hill","text": "Some may trust in"}, \
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book, 'book.json');
       var result = this.indexInstance.searchIndex('in Trav', 'book.json');
-      expect(result).toEqual({'in':[0,1], 'travis':[1]});
+      var expectedResult = [
+        {
+          indexes: {'in':[0,1], 'travis':[1]},
+          searchedFile: 'book.json',
+          documents: [0, 1]
+        }
+      ];
+      expect(result).toEqual(expectedResult);
   });
 
   it('should return false if an empty string is passed as search query',

@@ -138,16 +138,16 @@ var Index = function() {
     if(filename === 'all') {
       for(var eachFile in this.filesIndexed) {
         result.push({
-          'indexes': this.getSearchResults(searchTerm, eachFile),
-          'searchedFile':eachFile,
-          'documents':this.getDocuments(eachFile)
+          indexes: this.getSearchResults(searchTerm, eachFile),
+          searchedFile: eachFile,
+          documents: this.getDocuments(eachFile)
         });
       }
     } else {
       result.push({
-        'indexes': this.getSearchResults(searchTerm, filename),
-        'searchedFile':filename,
-        'documents':this.getDocuments(filename)
+        indexes: this.getSearchResults(searchTerm, filename),
+        searchedFile: filename,
+        documents: this.getDocuments(filename)
       });
     }
     return result;
