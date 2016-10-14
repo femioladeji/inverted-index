@@ -84,20 +84,20 @@
         <div class="clearfix"></div>
         <br/>
         <div class="row">
-          <div class="col-sm-6 col-sm-offset-3" ng-show="indexes">
+          <div ng-repeat="(key, details) in indexed" class="col-sm-6 col-sm-offset-3" ng-show="indexed">
             <h2>
-              <span ng-if="indexDisplay">Showing index for {{indexedFile}}</span>
-              <span ng-if="!indexDisplay">Search result for "{{searchQuery}}" in "{{searchedFile}}"</span>
+              <span ng-if="indexDisplay">Showing index for {{details.indexedFile}}</span>
+              <span ng-if="!indexDisplay">Search result for "{{searchQuery}}" in "{{details.searchedFile}}"</span>
             </h2>
             <table class="table table-striped">
               <thead>
                 <th>Tokens</th>
-                <th style="text-align:center" ng-repeat="i in documents">Document {{i+1}}</th>
+                <th style="text-align:center" ng-repeat="i in details.documents">Document {{i+1}}</th>
               </thead>
               <tbody>
-                <tr ng-repeat="(key, value) in indexes">
+                <tr ng-repeat="(key, value) in details.indexes">
                   <td>{{key}}</td>
-                  <td ng-repeat="docnum in documents" style="text-align:center; font-weight:bold">
+                  <td ng-repeat="docnum in details.documents" style="text-align:center; font-weight:bold">
                     <span ng-repeat="each in value" ng-show="{{each==docnum}}">X</span>
                   </td>
                 </tr>

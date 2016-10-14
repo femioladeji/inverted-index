@@ -10,6 +10,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
   var invIndex = new Index();
+
   $scope.getIndex = function() {
     var fileChoice = $scope.uploadSelected;
     if (fileChoice === undefined) {
@@ -23,10 +24,15 @@ invApp.controller('invertedController', ['$scope', function($scope){
         alert('Your file must have title and text');
         return false;
       }
-      $scope.indexes = indexes;
-      $scope.documents = invIndex.getDocuments(fileChoice);
       $scope.indexDisplay = true;
-      $scope.indexedFile = fileChoice;
+      $scope.indexed = [
+        {
+          'indexes':indexes,
+          'documents':invIndex.getDocuments(fileChoice),
+          'indexedFile':fileChoice
+        }
+      ];
+
     } else {
       alert('Your json file must not be empty');
     }
@@ -47,10 +53,8 @@ invApp.controller('invertedController', ['$scope', function($scope){
       alert('Invalid search query');
       return false;
     }
-    $scope.indexes = result;
+    $scope.indexed = result;
     $scope.indexDisplay = false;
-    $scope.searchedFile = fileChoice;
-    // $scope.$apply();
   }
 
   document.getElementById('uploadfile').addEventListener('change', readJson);

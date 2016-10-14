@@ -134,16 +134,23 @@ var Index = function() {
         return false;
     }
 
+    var result = [];
     if(filename === 'all') {
-      var result = [];
       for(var eachFile in this.filesIndexed) {
-        result.push(this.getSearchResults(searchTerm, eachFile));
+        result.push({
+          'indexes': this.getSearchResults(searchTerm, eachFile),
+          'searchedFile':eachFile,
+          'documents':this.getDocuments(eachFile)
+        });
       }
-      console.log(result);
-      return result;
     } else {
-      return this.getSearchResults(searchTerm, filename);
+      result.push({
+        'indexes': this.getSearchResults(searchTerm, filename),
+        'searchedFile':filename,
+        'documents':this.getDocuments(filename)
+      });
     }
+    return result;
   }
 
   /**
@@ -152,6 +159,7 @@ var Index = function() {
   @param searchTerm {string or array} - the search query can be a string
   or an array
   @param filename {string} - the name of the file
+  @return {object} - an object with the found words as keys
   */
   this.getSearchResults = function(searchTerm, filename) {
     var indexToSearch = this.getIndex(filename), result = {};
