@@ -2,7 +2,6 @@
   "name": "inverted-index",
   "version": "1.0.0",
   "description": "An inverted index js app that aids quick searching",
-  "main": "index.js",
   "scripts": {
     "start": "gulp",
     "test": "node_modules/karma/bin/karma start karma.conf.js --single-run"
