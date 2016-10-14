@@ -11,5 +11,5 @@ before_install:
  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
  - sudo dpkg -i google-chrome*.deb
 
-after_success:
+after_script:
   - cat ./coverage/**/lcov.info | ./node_modules/coveralls/bin/coveralls.js
