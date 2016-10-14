@@ -129,10 +129,31 @@ var Index = function() {
   */
   this.searchIndex = function(searchTerm, filename) {
     if((typeof searchTerm === 'string' && searchTerm.trim() === '') ||
-      searchTerm.length === 0) {
+      (typeof searchTerm === 'array' && searchTerm.length === 0) ||
+      searchTerm === undefined) {
         return false;
     }
 
+    if(filename === 'all') {
+      var result = [];
+      for(var eachFile in this.filesIndexed) {
+        result.push(this.getSearchResults(searchTerm, eachFile));
+      }
+      console.log(result);
+      return result;
+    } else {
+      return this.getSearchResults(searchTerm, filename);
+    }
+  }
+
+  /**
+  getSearchResults method checks the index of the file and
+  returns the result
+  @param searchTerm {string or array} - the search query can be a string
+  or an array
+  @param filename {string} - the name of the file
+  */
+  this.getSearchResults = function(searchTerm, filename) {
     var indexToSearch = this.getIndex(filename), result = {};
     //if it is a string of search terms then a split can be done
     if(typeof searchTerm === 'string') {

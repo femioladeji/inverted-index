@@ -40,12 +40,8 @@ invApp.controller('invertedController', ['$scope', function($scope){
       alert('The file has not been indexed');
       return false;
     }
-    var result;
-    if(fileChoice === 'all') {
-    } else {
-      result = $scope.uploadedFiles[fileChoice]['indexObject'].searchIndex($scope.searchQuery);
-    }
 
+    var result = invIndex.searchIndex($scope.searchQuery, fileChoice);
     
     if(!result) {
       alert('Invalid search query');
