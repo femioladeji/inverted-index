@@ -6,18 +6,18 @@ describe('Read book data', function() {
   });
 
   it('should return false if an invalid JSON array was read', function() {
-    var indexed = this.indexInstance.createIndex('invalid json as a string', 'invalid.json');
+    let indexed = this.indexInstance.createIndex('invalid json as a string', 'invalid.json');
     expect(indexed).toBeFalsy();
   });
 
   it('should return false if an empty json was read', function() {
-    var indexed = this.indexInstance.createIndex([], 'invalid.json');
+    let indexed = this.indexInstance.createIndex([], 'invalid.json');
     expect(indexed).toBeFalsy();
   });
 });
 
 describe('Populate Index', function() {
-  var valid, invalid;
+  let valid, invalid;
   beforeEach(function() {
     this.indexInstance = new Index();
     valid = '[{"title": "The hill","text": "Some may trust in"},{"title": \
@@ -33,8 +33,8 @@ describe('Populate Index', function() {
   it('should return the right index value if a valid json is passed',
     function () {
       this.indexInstance.createIndex(valid, 'valid.json');
-      var indexed = this.indexInstance.getIndex('valid.json');
-      var answer = {
+      let indexed = this.indexInstance.getIndex('valid.json');
+      let answer = {
         'some': [0],
         'the': [0, 1],
         'hill': [0],
@@ -51,7 +51,7 @@ describe('Populate Index', function() {
 
   it('should return false if some docs don\'t have title or text',
     function() {
-      var indexed = this.indexInstance.createIndex(invalid, 'invalid.json');
+      let indexed = this.indexInstance.createIndex(invalid, 'invalid.json');
       expect(indexed).toBeFalsy();
     });
 });
@@ -63,12 +63,12 @@ describe('Search index', function() {
 
   it('should return an array of object(s) with each word as keys and the value is an \
     array of the document index', function() {
-      var book = '[{"title": "The hill","text": "Some may trust in"}, \
+      let book = '[{"title": "The hill","text": "Some may trust in"}, \
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book, 'book.json');
-      var result = this.indexInstance.searchIndex('in Trav', 'book.json');
-      var expectedResult = [
+      let result = this.indexInstance.searchIndex('in Trav', 'book.json');
+      let expectedResult = [
         {
           indexes: {'in':[0,1], 'travis':[1]},
           searchedFile: 'book.json',
@@ -80,15 +80,15 @@ describe('Search index', function() {
 
   it('should return an array of search result for each file if the file \
     searched is all', function() {
-      var book1 = '[{"title": "The hill","text": "Some may trust in"}, \
+      let book1 = '[{"title": "The hill","text": "Some may trust in"}, \
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
-      var book2 = '[{"title": "The hill","text": "Some may trust in"}, \
+      let book2 = '[{"title": "The hill","text": "Some may trust in"}, \
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book1, 'book1.json');
       this.indexInstance.createIndex(book2, 'book2.json');
-      var expectedResult = [
+      let expectedResult = [
         {
           documents: [0, 1],
           indexes: {'the': [0,1]},
@@ -100,17 +100,16 @@ describe('Search index', function() {
           searchedFile: 'book2.json'
         }
       ];
-      var result = this.indexInstance.searchIndex('the', 'all');
-      console.log(result);
+      let result = this.indexInstance.searchIndex('the', 'all');
       expect(result).toEqual(expectedResult);
     });
 
   it('should return false if an empty string is passed as search query',
     function() {
-      var book = "[{'title': 'The hill', 'text': 'Some may trust in'}, \
+      let book = "[{'title': 'The hill', 'text': 'Some may trust in'}, \
           {'title': 'Travis', 'text': 'The travis in CI is not in'}]";
       this.indexInstance.createIndex(book, 'book.json');
-      var result = this.indexInstance.searchIndex('    ');
+      let result = this.indexInstance.searchIndex('    ');
       expect(result).toBeFalsy();
   });
 });
