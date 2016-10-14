@@ -18,10 +18,6 @@ var Index = function() {
       return false;
     }
 
-    if(jsonData === null || jsonData.length === 0) {
-      return false;
-    }
-
     this.filesIndexed[filename] = {};
     if(!this.prepareJsonData(jsonData, filename)) {
       delete this.filesIndexed[filename];

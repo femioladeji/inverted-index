@@ -49,7 +49,7 @@ describe('Populate Index', function() {
       expect(indexed).toEqual(answer);
   });
 
-  it('should add a property invalidDocuments if some docs don\'t have title or text',
+  it('should return false if some docs don\'t have title or text',
     function() {
       var indexed = this.indexInstance.createIndex(invalid, 'invalid.json');
       expect(indexed).toBeFalsy();
@@ -77,6 +77,33 @@ describe('Search index', function() {
       ];
       expect(result).toEqual(expectedResult);
   });
+
+  it('should return an array of search result for each file if the file \
+    searched is all', function() {
+      var book1 = '[{"title": "The hill","text": "Some may trust in"}, \
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
+
+      var book2 = '[{"title": "The hill","text": "Some may trust in"}, \
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
+
+      this.indexInstance.createIndex(book1, 'book1.json');
+      this.indexInstance.createIndex(book2, 'book2.json');
+      var expectedResult = [
+        {
+          documents: [0, 1],
+          indexes: {'the': [0,1]},
+          searchedFile: 'book1.json'
+        },
+        {
+          documents: [0, 1],
+          indexes: {'the': [0,1]},
+          searchedFile: 'book2.json'
+        }
+      ];
+      var result = this.indexInstance.searchIndex('the', 'all');
+      console.log(result);
+      expect(result).toEqual(expectedResult);
+    });
 
   it('should return false if an empty string is passed as search query',
     function() {
