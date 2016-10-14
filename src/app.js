@@ -7,23 +7,21 @@ var invApp = angular.module('invertedIndex', []);
 
 
 invApp.controller('invertedController', ['$scope', function($scope){
+  var invIndex = new Index();
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
-  var invIndex = new Index();
-
+  $scope.allFilesIndexed = {};
+  /**
+  $scope.getIndex is executed when the getIndex button is clicked
+  */
   $scope.getIndex = function() {
     var fileChoice = $scope.uploadSelected;
     if (fileChoice === undefined) {
       alert('Select a file to get index');
-      return false;
     }
 
     if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
       var indexes = invIndex.getIndex(fileChoice);
-      if (indexes.length === 0) {
-        alert('Your file must have title and text');
-        return false;
-      }
       $scope.indexDisplay = true;
       $scope.indexed = [
         {
@@ -33,8 +31,13 @@ invApp.controller('invertedController', ['$scope', function($scope){
         }
       ];
 
+      $scope.allFilesIndexed[fileChoice] = true;
+
     } else {
-      alert('Your json file must not be empty');
+      // the file was not indexed because it is invalid;
+      delete $scope.uploadedFiles[fileChoice];
+      alert('Your json file is invalid, make sure each element has title \
+        and text property');
     }
     
   }
@@ -53,6 +56,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
       alert('Invalid search query');
       return false;
     }
+
     $scope.indexed = result;
     $scope.indexDisplay = false;
   }
