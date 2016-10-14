@@ -3,11 +3,11 @@
 The file is concerned about maintaining the angular
 part of the app
 */
-var invApp = angular.module('invertedIndex', []);
+let invApp = angular.module('invertedIndex', []);
 
 
 invApp.controller('invertedController', ['$scope', function($scope){
-  var invIndex = new Index();
+  let invIndex = new Index();
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
   $scope.allFilesIndexed = {};
@@ -15,13 +15,13 @@ invApp.controller('invertedController', ['$scope', function($scope){
   $scope.getIndex is executed when the getIndex button is clicked
   */
   $scope.getIndex = function() {
-    var fileChoice = $scope.uploadSelected;
+    let fileChoice = $scope.uploadSelected;
     if (fileChoice === undefined) {
       alert('Select a file to get index');
     }
 
     if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
-      var indexes = invIndex.getIndex(fileChoice);
+      let indexes = invIndex.getIndex(fileChoice);
       $scope.indexDisplay = true;
       $scope.indexed = [
         {
@@ -33,6 +33,12 @@ invApp.controller('invertedController', ['$scope', function($scope){
 
       $scope.allFilesIndexed[fileChoice] = true;
 
+      //to check if two files or above have been uploaded
+      //so that an option to search all files can be added
+      if(Object.keys($scope.allFilesIndexed).length > 1) {
+        $scope.allFlag = true;
+      }
+
     } else {
       // the file was not indexed because it is invalid;
       delete $scope.uploadedFiles[fileChoice];
@@ -43,14 +49,14 @@ invApp.controller('invertedController', ['$scope', function($scope){
   }
 
   $scope.searchIndex = function() {
-    var fileChoice = $scope.uploadToSearch;
+    let fileChoice = $scope.uploadToSearch;
     $scope.searchQuery = $scope.searchTerm;
     if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice != 'all') {
       alert('The file has not been indexed');
       return false;
     }
 
-    var result = invIndex.searchIndex($scope.searchQuery, fileChoice);
+    let result = invIndex.searchIndex($scope.searchQuery, fileChoice);
     
     if(!result) {
       alert('Invalid search query');
@@ -69,15 +75,15 @@ invApp.controller('invertedController', ['$scope', function($scope){
   was added to
   */
   function readJson(dom) {
-    var fileDetails = dom.target.files[0];
+    let fileDetails = dom.target.files[0];
     //check if filename ends in json
     if(!fileDetails.name.match(/\.json$/)) {
       alert('Invalid file. You can only upload JSON');
     } else {
-      var readFile = new FileReader();
+      let readFile = new FileReader();
       readFile.readAsText(fileDetails);
       readFile.onload = function(file) {
-        var content = file.target.result;
+        let content = file.target.result;
         try {
           JSON.parse(content);
         } catch(e) {
@@ -86,11 +92,7 @@ invApp.controller('invertedController', ['$scope', function($scope){
         }
         $scope.uploadedFiles[fileDetails.name] = {};
         $scope.uploadedFiles[fileDetails.name].text = content;
-        //to check if two files or above have been uploaded
-        //so that an option to search all files can be added
-        if(Object.keys($scope.uploadedFiles).length > 1) {
-          $scope.allFlag = true;
-        }
+        
         //to make angular update the view
         $scope.$apply();
       }
