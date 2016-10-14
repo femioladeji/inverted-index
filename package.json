@@ -24,11 +24,12 @@
     "url": "https://github.com/femidotexe/inverted-index/issues"
   },
   "homepage": "https://github.com/femidotexe/inverted-index#readme",
-  "dependencies": {},
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
+  },
   "devDependencies": {
     "coveralls": "^2.11.14",
-    "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0",
     "jasmine-core": "^2.5.2",
     "karma": "^1.3.0",
     "karma-chrome-launcher": "^2.0.0",
