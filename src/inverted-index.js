@@ -1,5 +1,7 @@
 "use strict";
 
+const hasProperty = Object.prototype.hasOwnProperty;
+
 class Index{
   constructor() {
     // an empty object that keeps track of files uploaded
@@ -48,8 +50,8 @@ class Index{
     for(let eachIndex in jsonData) {
       aDocument = jsonData[eachIndex];
       //check if each doc has the text and title property
-      if(aDocument.hasOwnProperty("text") &&
-        aDocument.hasOwnProperty("title")) {
+      if(hasProperty.call(aDocument, "text") &&
+        hasProperty.call(aDocument, "title")) {
           //convert the string of both title and text into array
           //and keep track of the document number
           let textTokens = this.tokenize(aDocument.text + " " + aDocument.title);
@@ -96,7 +98,7 @@ class Index{
       for(let i = 0; i < tokenArray.length; i++){
         let token = tokenArray[i];
         //check if the word has not been indexed and used as key in the object
-        if(!indexDict.hasOwnProperty(token)) {
+        if(!hasProperty.call(indexDict, token)) {
           //the token is used as a key and initialized to an empty array
           indexDict[token] = [];
         }
