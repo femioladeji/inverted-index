@@ -177,7 +177,6 @@ class Index{
         //does the indexed token contain the searchkeyword
         if(eachToken.includes(searchTokens[indexCount])) {
           result[eachToken] = indexToSearch[eachToken];
-          break;
         }
       }
     }
