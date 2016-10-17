@@ -1,0 +1,39 @@
+{
+  "name": "inverted-index",
+  "version": "1.0.0",
+  "description": "An inverted index js app that aids quick searching",
+  "scripts": {
+    "start": "gulp",
+    "test": "node_modules/karma/bin/karma start karma.conf.js --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/femidotexe/inverted-index.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "inverted",
+    "index",
+    "andela",
+    "search"
+  ],
+  "author": "Femi Oladeji",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/femidotexe/inverted-index/issues"
+  },
+  "homepage": "https://github.com/femidotexe/inverted-index#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
+  },
+  "devDependencies": {
+    "coveralls": "^2.11.14",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2"
+  }
+}
