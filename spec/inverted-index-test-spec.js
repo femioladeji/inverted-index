@@ -67,7 +67,7 @@ describe("Search index", function() {
       {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book, "book.json");
-      let result = this.indexInstance.searchIndex("in Trav", "book.json");
+      let result = this.indexInstance.searchIndex("in Travis", "book.json");
       let expectedResult = [
         {
           indexes: {in:[0,1], travis:[1]},
