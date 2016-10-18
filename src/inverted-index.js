@@ -175,8 +175,9 @@ class Index{
     for(let indexCount in searchTokens) {
       for(let eachToken in indexToSearch) {
         //does the indexed token contain the searchkeyword
-        if(eachToken.includes(searchTokens[indexCount])) {
+        if(eachToken === searchTokens[indexCount]) {
           result[eachToken] = indexToSearch[eachToken];
+          break;
         }
       }
     }
