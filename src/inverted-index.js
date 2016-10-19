@@ -95,7 +95,8 @@ class Index{
     //loop through the documents
     for(let each in documents) {
       let tokenArray = documents[each].textTokens;
-      for(let i = 0; i < tokenArray.length; i++){
+      let tokenLength = tokenArray.length;
+      for(let i = 0; i < tokenLength; i++){
         let token = tokenArray[i];
         //check if the word has not been indexed and used as key in the object
         if(!hasProperty.call(indexDict, token)) {
@@ -183,22 +184,6 @@ class Index{
     }
     return result;
   }
-
-  // this.readJsonFile = function(path, callback) {
-  //   //create xmlhttprequest to read file
-  //   let request = new XMLHttpRequest();
-  //   let this_ = this;
-  //   //once the ready state change, the function (callback) is executed
-  //   request.onreadystatechange = function() {
-  //     //is request completed and was it successful
-  //     if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-  //       callback(JSON.parse(request.responseText));
-  //     }
-  //   };
-  //   request.open('GET', path, true);
-  //   request.setRequestHeader('Content-Type', 'application/json');
-  //   request.send();
-  // }
 
   /**
   getDocuments get an array of the documents index e.g [0, 1, 2, 3]
