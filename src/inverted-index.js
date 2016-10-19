@@ -174,12 +174,10 @@ class Index {
       searchTokens = this.tokenize(searchTokens);
     }
     for(let indexCount in searchTokens) {
-      for(let eachToken in indexToSearch) {
-        //does the indexed token contain the searchkeyword
-        if(eachToken === searchTokens[indexCount]) {
-          result[eachToken] = indexToSearch[eachToken];
-          break;
-        }
+      let eachSearchWord = searchTokens[indexCount];
+      if(indexToSearch[eachSearchWord] !== undefined) {
+        //if the word that is searched for has already been indexed
+        result[eachSearchWord] = indexToSearch[eachSearchWord];
       }
     }
     return result;
