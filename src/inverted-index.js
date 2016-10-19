@@ -2,7 +2,7 @@
 
 const hasProperty = Object.prototype.hasOwnProperty;
 
-class Index{
+class Index {
   constructor() {
     // an empty object that keeps track of files uploaded
     // and their index
@@ -40,7 +40,8 @@ class Index{
   prepareJsonData gets the json ready for indexing by tokenizing the
   statements
   @param {object} jsonData - the jsonData that has been read from the file
-  @param {string} filename - the name of the file uploaded 
+  @param {string} filename - the name of the file uploaded
+  @return {boolean} value to indicate if the index was successfully created
   */
   prepareJsonData(jsonData, filename) {
 
@@ -96,7 +97,7 @@ class Index{
     for(let each in documents) {
       let tokenArray = documents[each].textTokens;
       let tokenLength = tokenArray.length;
-      for(let i = 0; i < tokenLength; i++){
+      for(let i = 0; i < tokenLength; i++) {
         let token = tokenArray[i];
         //check if the word has not been indexed and used as key in the object
         if(!hasProperty.call(indexDict, token)) {
@@ -110,7 +111,6 @@ class Index{
         }
       }
     }
-
     return indexDict;
   }
 

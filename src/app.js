@@ -6,7 +6,7 @@ part of the app
 let invApp = angular.module("invertedIndex", []);
 
 
-invApp.controller("invertedController", ["$scope", function($scope){
+invApp.controller("invertedController", ["$scope", function($scope) {
   let invIndex = new Index();
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
@@ -16,8 +16,9 @@ invApp.controller("invertedController", ["$scope", function($scope){
   */
   $scope.getIndex = function() {
     let fileChoice = $scope.uploadSelected;
-    if (fileChoice === undefined) {
+    if(fileChoice === undefined) {
       alert("Select a file to get index");
+      return false;
     }
     //if index was created for that file
     if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
@@ -43,8 +44,7 @@ invApp.controller("invertedController", ["$scope", function($scope){
     } else {
       // the file was not indexed because it is invalid;
       delete $scope.uploadedFiles[fileChoice];
-      alert("Your json file is invalid, make sure each element has title \
-        and text property");
+      alert("Your json file is invalid, make sure each element has title and text property");
     }
     
   };
