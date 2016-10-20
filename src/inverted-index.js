@@ -88,7 +88,8 @@ class Index {
   }
 
   /**
-   * constructIndex method searches through the array of documents objects and identifies the words in each
+   * constructIndex method searches through the array of documents objects and
+   * dentifies the words in each
    * @param {array} documents - array of objects with each obect representing a document
    * @return {object} objects of tokens. Each token is a key in the object and
    * contains an array of documents in which it was found
@@ -122,12 +123,14 @@ class Index {
    * @return {Object} the words index
   */
   getIndex(filename) {
-    let returnValue = this.filesIndexed[filename].index === undefined ? false : this.filesIndexed[filename].index;
+    let file = this.filesIndexed[filename];
+    let returnValue = !file.index ? false : file.index;
     return returnValue;
   }
 
   /**
-   * searchIndex searches the indexed words to determine the documents that the searchterms can be found
+   * searchIndex searches the indexed words to determine the documents that the searchterms
+   * can be found
    * @params searchTerm {string, array} the search query
    * @params filename {string}- the name of the file to search its index
    * @return {object|boolean} it returns boolean if the searchTerm is empty and

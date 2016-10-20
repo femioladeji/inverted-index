@@ -20,7 +20,8 @@ describe("Populate Index", function() {
   let valid, invalid;
   beforeEach(function() {
     this.indexInstance = new Index();
-    valid = '[{"title": "The hill","text": "Some may trust in"},{"title": "Travis","text": "The travis in CI is not in."}]';
+    valid = '[{"title": "The hill","text": "Some may trust in"},\
+    {"title": "Travis","text": "The travis in CI is not in."}]';
     invalid = '[{"text": "Some may trust in"},{"title": "Travis"}]';
   });
 
@@ -60,9 +61,10 @@ describe("Search index", function() {
     this.indexInstance = new Index();
   });
 
-  it("should return an array of object(s) with each word as keys and the value is an array of the document index",
-    function() {
-      let book = '[{"title": "The hill","text": "Some may trust in"}, {"title": "Travis", "text": "The travis in CI is not in"}]';
+  it("should return an array of object(s) with each word as keys and the value is an array \
+    of the document index", function() {
+      let book = '[{"title": "The hill","text": "Some may trust in"},\
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book, "book.json");
       let result = this.indexInstance.searchIndex("in Travis", "book.json");
@@ -78,9 +80,11 @@ describe("Search index", function() {
 
   it("should return an array of search result for each file if the file searched is all",
     function() {
-      let book1 = '[{"title": "The hill","text": "Some may trust in"}, {"title": "Travis", "text": "The travis in CI is not in"}]';
+      let book1 = '[{"title": "The hill","text": "Some may trust in"},\
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
 
-      let book2 = '[{"title": "The hill","text": "Some may trust in"}, {"title": "Travis", "text": "The travis in CI is not in"}]';
+      let book2 = '[{"title": "The hill","text": "Some may trust in"},\
+      {"title": "Travis", "text": "The travis in CI is not in"}]';
 
       this.indexInstance.createIndex(book1, "book1.json");
       this.indexInstance.createIndex(book2, "book2.json");
@@ -106,7 +110,8 @@ describe("Search index", function() {
 
   it("should return false if an empty string is passed as search query",
     function() {
-      let book = "[{'title': 'The hill', 'text': 'Some may trust in'}, {'title': 'Travis', 'text': 'The travis in CI is not in'}]";
+      let book = "[{'title': 'The hill', 'text': 'Some may trust in'},\
+      {'title': 'Travis', 'text': 'The travis in CI is not in'}]";
       this.indexInstance.createIndex(book, "book.json");
       let result = this.indexInstance.searchIndex("  ");
       expect(result).toBeFalsy();

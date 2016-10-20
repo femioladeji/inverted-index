@@ -16,6 +16,7 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "maxlen":100,
   "globals": {
     "atom": true,
     "window":true

@@ -69,14 +69,11 @@ invApp.controller("invertedController", ["$scope", function($scope) {
     $scope.indexDisplay = false;
   };
 
-  document.getElementById("uploadfile").addEventListener("change", readJson);
-
   /**
-  readJson function is used to read the content of a file
-  @param {object} dom is an object representing the dom element the change event
-  was added to
+   * readJson function is used to read the content of a file
+   * @param {object} dom is an object representing the dom element the change event was attached to
   */
-  function readJson(dom) {
+  $scope.readJson = function(dom) {
     let fileDetails = dom.target.files[0];
     //check if filename ends in json
     if(!fileDetails.name.match(/\.json$/)) {
@@ -88,7 +85,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
         let content = file.target.result;
         try {
           JSON.parse(content);
-        } catch(e) {
+        } catch(exception) {
           alert("Invalid JSON file");
           return false;
         }
@@ -100,4 +97,6 @@ invApp.controller("invertedController", ["$scope", function($scope) {
       };
     }
   }
+
+  document.getElementById("uploadfile").addEventListener("change", $scope.readJson);
 }]);
