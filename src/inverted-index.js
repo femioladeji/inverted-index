@@ -174,7 +174,7 @@ class Index {
     }
     for(let indexCount in searchTokens) {
       let eachSearchWord = searchTokens[indexCount];
-      if(indexToSearch[eachSearchWord] !== undefined) {
+      if(indexToSearch[eachSearchWord]) {
         //if the word that is searched for has already been indexed
         result[eachSearchWord] = indexToSearch[eachSearchWord];
       }

@@ -23,7 +23,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
     //If index was created for that file
     if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
       //Gets the indexed words
-      let indexes = invIndex.getIndex(fileChoice);
+      const indexes = invIndex.getIndex(fileChoice);
       $scope.indexDisplay = true;
       $scope.indexed = [
         {
