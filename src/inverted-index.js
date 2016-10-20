@@ -45,18 +45,14 @@ class Index {
   prepareJsonData(jsonData, filename) {
 
     let textArray = [], documentNum = 0;
-    //loop through each doc in the json
+    //Loop through each doc in the json
     let aDocument = [];
     for(let eachIndex in jsonData) {
       aDocument = jsonData[eachIndex];
       //check if each doc has the text and title property
       if(hasProperty.call(aDocument, "text") &&
         hasProperty.call(aDocument, "title")) {
-          //convert the string of both title and text into array
-          //and keep track of the document number
-          let textTokens = this.tokenize(aDocument.text + " " + aDocument.title);
-          //the documentNum is the index of the doc that has been tokenied
-          textArray.push({documentNum, textTokens});
+          textArray.push(this.getDocumentTokens(aDocument, documentNum));
       } else {
         return false;
       }
@@ -67,8 +63,21 @@ class Index {
     /*Adds the attribute wordIndex to the class instance if the constructIndex
     was successful*/
     this.filesIndexed[filename].index = this.constructIndex(textArray);
-
     return true;
+  }
+
+  /**
+   * getDocumentTokens method gets all the tokens in each document
+   * and composes an object out of them
+   * @param {object} documentDetails that contains the title and text of the document
+   * @param {integer} documentNum, the number of the document
+   * @return {object} documentNum and the text tokens
+   */
+
+  getDocumentTokens(documentDetails, documentNum) {
+    //Convert the string of both title and text into array
+    let textTokens = this.tokenize(documentDetails.text + " " + documentDetails.title);
+    return {documentNum, textTokens};
   }
 
   /**
