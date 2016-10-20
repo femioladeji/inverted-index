@@ -16,13 +16,13 @@ invApp.controller("invertedController", ["$scope", function($scope) {
   */
   $scope.getIndex = function() {
     let fileChoice = $scope.uploadSelected;
-    if(fileChoice === undefined) {
+    if(!fileChoice) {
       alert("Select a file to get index");
       return false;
     }
-    //if index was created for that file
+    //If index was created for that file
     if(invIndex.createIndex($scope.uploadedFiles[fileChoice].text, fileChoice)) {
-      //gets the indexed words
+      //Gets the indexed words
       let indexes = invIndex.getIndex(fileChoice);
       $scope.indexDisplay = true;
       $scope.indexed = [
@@ -32,17 +32,17 @@ invApp.controller("invertedController", ["$scope", function($scope) {
           indexedFile: fileChoice
         }
       ];
-      //keeps track of files that have been indexed
+      //Keeps track of files that have been indexed
       $scope.allFilesIndexed[fileChoice] = true;
 
-      //to check if two files or above have been indexed
-      //so that an option to search all files can be added
+      /*To check if two files or above have been indexed
+      so that an option to search all files can be added*/
       if(Object.keys($scope.allFilesIndexed).length > 1) {
         $scope.allFlag = true;
       }
 
     } else {
-      // the file was not indexed because it is invalid;
+      //The file was not indexed because it is invalid;
       delete $scope.uploadedFiles[fileChoice];
       alert("Your json file is invalid, make sure each element has title and text property");
     }

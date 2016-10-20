@@ -4,8 +4,8 @@ const hasProperty = Object.prototype.hasOwnProperty;
 
 class Index {
   constructor() {
-    // an empty object that keeps track of files uploaded
-    // and their index
+    /*An empty object that keeps track of files uploaded
+    and their index*/
     this.filesIndexed = {};
   }
   
@@ -13,19 +13,19 @@ class Index {
   /**
     createIndex function is used to get all the index
     @param {object} jsonData- the json data to index
-    @parame {string} filename- the name of the file to be indexed
+    @param {string} filename- the name of the file to be indexed
     @return {boolean} true or false if the createIndex was successful
   */
   createIndex(jsonData, filename) {
-    //checks if the jsondata is accurate and not empty
+    //Checks if the jsondata is accurate and not empty
     try {
       jsonData = JSON.parse(jsonData);
-    } catch(e) {
+    } catch(exception) {
       return false;
     }
 
-    //adds the filename as a key to the filesIndex and
-    //initializes it to an empty object
+    /*Adds the filename as a key to the filesIndex and
+    initializes it to an empty object*/
     this.filesIndexed[filename] = {};
     if(!this.prepareJsonData(jsonData, filename)) {
       //if the file was not indexed, the key is removed
@@ -33,7 +33,6 @@ class Index {
       return false;
     }
     return true;
-
   }
 
   /**
@@ -63,10 +62,10 @@ class Index {
       }
       documentNum++;
     }
-    //saves the number of documents
+    //Saves the number of documents
     this.filesIndexed[filename].numOfDocs = documentNum;
-    //adds the attribute wordIndex to the class instance if the constructIndex
-    //was successful
+    /*Adds the attribute wordIndex to the class instance if the constructIndex
+    was successful*/
     this.filesIndexed[filename].index = this.constructIndex(textArray);
 
     return true;
@@ -93,19 +92,19 @@ class Index {
   */
   constructIndex(documents) {
     let indexDict = {};
-    //loop through the documents
+    //Loop through the documents
     for(let each in documents) {
       let tokenArray = documents[each].textTokens;
       let tokenLength = tokenArray.length;
       for(let i = 0; i < tokenLength; i++) {
         let token = tokenArray[i];
-        //check if the word has not been indexed and used as key in the object
+        //Check if the word has not been indexed and used as key in the object
         if(!hasProperty.call(indexDict, token)) {
-          //the token is used as a key and initialized to an empty array
+          //The token is used as a key and initialized to an empty array
           indexDict[token] = [];
         }
-        //a check is run to confirm if the document has been indexed
-        //with the word
+        /*A check is run to confirm if the document has been indexed
+        with the word*/
         if(indexDict[token].indexOf(documents[each].documentNum) === -1) {
           indexDict[token].push(documents[each].documentNum);
         }
@@ -115,7 +114,7 @@ class Index {
   }
 
   /**
-  getIndex method returns the indexed words and the documents they were found
+  getIndex method returns the indexed words and the documents that were found
   @filename {string} name of the file to get its index
   @return {Object} the words index
   */
@@ -130,7 +129,7 @@ class Index {
   @params searchTerm {string, array} the search query
   @params filename {string}- the name of the file to search its index
   @return {object|boolean} it returns boolean if the searchTerm is empty and
-  it retrns object if it is not. Each index is each searcykeyword.
+  it returns object if it is not. Each index is each searcykeyword.
   Each with an array value of the document index
   */
   searchIndex(searchTerm, filename) {
