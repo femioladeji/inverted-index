@@ -9,13 +9,12 @@ class Index {
     this.filesIndexed = {};
   }
   
-
   /**
-    createIndex function is used to get all the index
-    @param {object} jsonData- the json data to index
-    @param {string} filename- the name of the file to be indexed
-    @return {boolean} true or false if the createIndex was successful
-  */
+   * createIndex function is used to get all the index
+   * @param {object} jsonData- the json data to index
+   * @param {string} filename- the name of the file to be indexed
+   * @return {boolean} true or false if the createIndex was successful
+   */
   createIndex(jsonData, filename) {
     //Checks if the jsondata is accurate and not empty
     try {
@@ -36,14 +35,12 @@ class Index {
   }
 
   /**
-  prepareJsonData gets the json ready for indexing by tokenizing the
-  statements
-  @param {object} jsonData - the jsonData that has been read from the file
-  @param {string} filename - the name of the file uploaded
-  @return {boolean} value to indicate if the index was successfully created
+   * prepareJsonData gets the json ready for indexing by tokenizing the statements
+   * @param {object} jsonData - the jsonData that has been read from the file
+   * @param {string} filename - the name of the file uploaded
+   * @return {boolean} value to indicate if the index was successfully created
   */
   prepareJsonData(jsonData, filename) {
-
     let textArray = [], documentNum = 0;
     //Loop through each doc in the json
     let aDocument = [];
@@ -81,10 +78,9 @@ class Index {
   }
 
   /**
-    tokenize: method converts the text to lowercase and then returns the
-    array of words
-    @param {string} text- the text to be tokenized
-    @return {array} array of words in the documents
+   * tokenize: method converts the text to lowercase and then returns the array of words
+   * @param {string} text- the text to be tokenized
+   * @return {array} array of words in the documents
   */
   tokenize(text) {
     text = text.replace(/[.,\/#!$%\^&\*;:'{}=\-_`~()]/g, "");
@@ -92,12 +88,10 @@ class Index {
   }
 
   /**
-    constructIndex method searches through the array of documents objects
-    and identifies the words in each
-    @param {array} documents - array of objects with each obect representing
-    a document
-    @return {object} objects of tokens. Each token is a key in the object and
-    contains an array of documents in which it was found
+   * constructIndex method searches through the array of documents objects and identifies the words in each
+   * @param {array} documents - array of objects with each obect representing a document
+   * @return {object} objects of tokens. Each token is a key in the object and
+   * contains an array of documents in which it was found
   */
   constructIndex(documents) {
     let indexDict = {};
@@ -123,9 +117,9 @@ class Index {
   }
 
   /**
-  getIndex method returns the indexed words and the documents that were found
-  @filename {string} name of the file to get its index
-  @return {Object} the words index
+   * getIndex method returns the indexed words and the documents that were found
+   * @param {string} filename: name of the file to get its index
+   * @return {Object} the words index
   */
   getIndex(filename) {
     let returnValue = this.filesIndexed[filename].index === undefined ? false : this.filesIndexed[filename].index;
@@ -133,13 +127,12 @@ class Index {
   }
 
   /**
-  searchIndex searches the indexed words to determine the documents that the
-  searchterms can be found
-  @params searchTerm {string, array} the search query
-  @params filename {string}- the name of the file to search its index
-  @return {object|boolean} it returns boolean if the searchTerm is empty and
-  it returns object if it is not. Each index is each searcykeyword.
-  Each with an array value of the document index
+   * searchIndex searches the indexed words to determine the documents that the searchterms can be found
+   * @params searchTerm {string, array} the search query
+   * @params filename {string}- the name of the file to search its index
+   * @return {object|boolean} it returns boolean if the searchTerm is empty and
+   * it returns object if it is not. Each index is each searcykeyword.
+   * Each with an array value of the document index
   */
   searchIndex(searchTerm, filename) {
     if((typeof searchTerm === "string" && searchTerm.trim() === "") ||
@@ -168,12 +161,10 @@ class Index {
   }
 
   /**
-  getSearchResults method checks the index of the file and
-  returns the result
-  @param searchTokens {string or array} - the search query can be a string
-  or an array
-  @param filename {string} - the name of the file
-  @return {object} - an object with the found words as keys
+   * getSearchResults method checks the index of the file and returns the result
+   * @param searchTokens {string or array} - the search query can be a string or an array
+   * @param filename {string} - the name of the file
+   * @return {object} - an object with the found words as keys
   */
   getSearchResults(searchTokens, filename) {
     let indexToSearch = this.getIndex(filename), result = {};
@@ -192,9 +183,9 @@ class Index {
   }
 
   /**
-  getDocuments get an array of the documents index e.g [0, 1, 2, 3]
-  @param {string} - name of the file to get its document
-  @return {array} an array of the documents index
+   * getDocuments get an array of the documents index e.g [0, 1, 2, 3]
+   * @param {string} - name of the file to get its document
+   * @return {array} an array of the documents index
   */
   getDocuments(filename) {
     let docs = [];
