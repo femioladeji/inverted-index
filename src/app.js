@@ -1,12 +1,12 @@
-"use strict";
+'use strict';
 /*
 The file is concerned about maintaining the angular
 part of the app
 */
-let invApp = angular.module("invertedIndex", []);
+let invApp = angular.module('invertedIndex', []);
 
 
-invApp.controller("invertedController", ["$scope", function($scope) {
+invApp.controller('invertedController', ['$scope', function($scope) {
   let invIndex = new Index();
   $scope.uploadedFiles = {};
   $scope.allFlag = false;
@@ -17,7 +17,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
   $scope.getIndex = function() {
     let fileChoice = $scope.uploadSelected;
     if(!fileChoice) {
-      alert("Select a file to get index");
+      showMessage('Select a file to get index');
       return false;
     }
     //If index was created for that file
@@ -44,7 +44,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
     } else {
       //The file was not indexed because it is invalid;
       delete $scope.uploadedFiles[fileChoice];
-      alert("Your json file is invalid, make sure each element has title and text property");
+      showMessage('Your json file is invalid, make sure each element has title and text property');
     }
     
   };
@@ -53,15 +53,15 @@ invApp.controller("invertedController", ["$scope", function($scope) {
     let fileChoice = $scope.uploadToSearch;
     $scope.searchQuery = $scope.searchTerm;
 
-    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice !== "all") {
-      alert("Select a file that has been indexed");
+    if(!$scope.uploadedFiles.hasOwnProperty(fileChoice) && fileChoice !== 'all') {
+      showMessage('Select a file that has been indexed');
       return false;
     }
 
     let result = invIndex.searchIndex($scope.searchQuery, fileChoice);
     
     if(!result) {
-      alert("Invalid search query");
+      showMessage('Invalid search query');
       return false;
     }
 
@@ -77,7 +77,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
     let fileDetails = dom.target.files[0];
     //check if filename ends in json
     if(!fileDetails.name.match(/\.json$/)) {
-      alert("Invalid file. You can only upload JSON");
+      showMessage('Invalid file. You can only upload JSON');
     } else {
       let readFile = new FileReader();
       readFile.readAsText(fileDetails);
@@ -86,7 +86,7 @@ invApp.controller("invertedController", ["$scope", function($scope) {
         try {
           JSON.parse(content);
         } catch(exception) {
-          alert("Invalid JSON file");
+          showMessage('Invalid JSON file');
           return false;
         }
         $scope.uploadedFiles[fileDetails.name] = {};
@@ -96,7 +96,11 @@ invApp.controller("invertedController", ["$scope", function($scope) {
         $scope.$apply();
       };
     }
-  }
+  };
 
-  document.getElementById("uploadfile").addEventListener("change", $scope.readJson);
+  function showMessage(message) {
+    $scope.message = message;
+    $('#response-modal').modal();
+  }
+  document.getElementById('uploadfile').addEventListener('change', $scope.readJson);
 }]);
