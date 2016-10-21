@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const hasProperty = Object.prototype.hasOwnProperty;
 
@@ -47,8 +47,8 @@ class Index {
     for(let eachIndex in jsonData) {
       aDocument = jsonData[eachIndex];
       //check if each doc has the text and title property
-      if(hasProperty.call(aDocument, "text") &&
-        hasProperty.call(aDocument, "title")) {
+      if(hasProperty.call(aDocument, 'text') &&
+        hasProperty.call(aDocument, 'title')) {
           textArray.push(this.getDocumentTokens(aDocument, documentNum));
       } else {
         return false;
@@ -73,7 +73,7 @@ class Index {
 
   getDocumentTokens(documentDetails, documentNum) {
     //Convert the string of both title and text into array
-    let textTokens = this.tokenize(documentDetails.text + " " + documentDetails.title);
+    let textTokens = this.tokenize(documentDetails.text + ' ' + documentDetails.title);
     return {documentNum, textTokens};
   }
 
@@ -83,8 +83,8 @@ class Index {
    * @return {array} array of words in the documents
   */
   tokenize(text) {
-    text = text.replace(/[.,\/#!$%\^&\*;:'{}=\-_`~()]/g, "");
-    return text.toLowerCase().split(" ");
+    text = text.replace(/[.,\/#!$%\^&\*;:'{}=\-_`~()]/g, '');
+    return text.toLowerCase().split(' ');
   }
 
   /**
@@ -97,11 +97,8 @@ class Index {
   constructIndex(documents) {
     let indexDict = {};
     //Loop through the documents
-    for(let each in documents) {
-      let tokenArray = documents[each].textTokens;
-      let tokenLength = tokenArray.length;
-      for(let i = 0; i < tokenLength; i++) {
-        let token = tokenArray[i];
+    documents.forEach((eachDoc) => {
+      eachDoc.textTokens.forEach((token) => {
         //Check if the word has not been indexed and used as key in the object
         if(!hasProperty.call(indexDict, token)) {
           //The token is used as a key and initialized to an empty array
@@ -109,11 +106,11 @@ class Index {
         }
         /*A check is run to confirm if the document has been indexed
         with the word*/
-        if(indexDict[token].indexOf(documents[each].documentNum) === -1) {
-          indexDict[token].push(documents[each].documentNum);
+        if(indexDict[token].indexOf(eachDoc.documentNum) === -1) {
+          indexDict[token].push(eachDoc.documentNum);
         }
-      }
-    }
+      });
+    });
     return indexDict;
   }
 
@@ -138,14 +135,14 @@ class Index {
    * Each with an array value of the document index
   */
   searchIndex(searchTerm, filename) {
-    if((typeof searchTerm === "string" && searchTerm.trim() === "") ||
-      (typeof searchTerm === "object" && searchTerm.length === 0) ||
+    if((typeof searchTerm === 'string' && searchTerm.trim() === '') ||
+      (typeof searchTerm === 'object' && searchTerm.length === 0) ||
       searchTerm === undefined) {
         return false;
     }
 
     let result = [];
-    if(filename === "all") {
+    if(filename === 'all') {
       for(let eachFile in this.filesIndexed) {
         result.push({
           indexes: this.getSearchResults(searchTerm, eachFile),
@@ -172,16 +169,15 @@ class Index {
   getSearchResults(searchTokens, filename) {
     let indexToSearch = this.getIndex(filename), result = {};
     //if it is a string of search terms then a split can be done
-    if(typeof searchTokens === "string") {
+    if(typeof searchTokens === 'string') {
       searchTokens = this.tokenize(searchTokens);
     }
-    for(let indexCount in searchTokens) {
-      let eachSearchWord = searchTokens[indexCount];
+    searchTokens.forEach((eachSearchWord) => {
       if(indexToSearch[eachSearchWord]) {
         //if the word that is searched for has already been indexed
         result[eachSearchWord] = indexToSearch[eachSearchWord];
       }
-    }
+    });
     return result;
   }
 

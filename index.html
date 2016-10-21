@@ -98,7 +98,7 @@
                 <tr ng-repeat="(key, value) in details.indexes">
                   <td>{{key}}</td>
                   <td ng-repeat="docnum in details.documents" style="text-align:center; font-weight:bold">
-                    <span ng-repeat="each in value" ng-show="{{each==docnum}}">X</span>
+                    <span ng-if="value.includes(docnum)">X</span>
                   </td>
                 </tr>
               </tbody>
