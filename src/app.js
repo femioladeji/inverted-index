@@ -101,6 +101,7 @@ invApp.controller('invertedController', ['$scope', function($scope) {
   function showMessage(message) {
     $scope.message = message;
     $('#response-modal').modal();
+    $scope.$apply();
   }
   document.getElementById('uploadfile').addEventListener('change', $scope.readJson);
 }]);
