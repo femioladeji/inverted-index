@@ -46,85 +46,87 @@
     </div>
     <!-- end of modal -->
     <div class="container">
-        <div class="col-sm-6">
-            <h1>
-                Inverted Index
-            </h1>
-            <blockquote>
-                <p>
-                    Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
-                </p>
-            </blockquote>
-        </div>
-
-        <div class="col-sm-6">
-            <h3>
-                Inverted Index
-            </h3>
-            <hr/>
+        <div class="col-sm-8">
             <form class="form-inline">
                 <div class="form-group">
                     
-                    <label class="btn btn-primary" >Upload JSON File
+                    <label class="btn btn-primary">Upload File
                       <input class="form-control" style="display:none" type="file" id="uploadfile">
                     </label>
                 </div>
+                <div class="form-group">
+                  <select class="form-control" ng-model="uploadSelected">
+                    <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" ng-click="getIndex()">GET INDEX</button>
+                </div>
+
+                <div class="form-group pull-right">
+                  <button class="btn btn-primary" ng-click="searchIndex()">Search</button>
+                </div>
+                
+                <div class="form-group pull-right">
+                  <select class="form-control" ng-model="uploadToSearch">
+                    <option value="all" ng-if="allFlag">All files</option>
+                    <option value="{{key}}" ng-repeat="(key, value) in allFilesIndexed">{{key}}</option>
+                  </select>
+                </div>
+
+                <div class="form-group pull-right">
+                  <input type="text" ng-model="searchTerm" class="form-control" placeholder="Enter Search Term" />
+                </div>
             </form>
             <div class="clearfix"></div>
-            <br/><br/>
-            <form class="form-inline">
-              <div class="form-group">
-                <select class="form-control" ng-model="uploadSelected">
-                  <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
-                </select>
+            <hr/>
+
+            <div class="row">
+              <div ng-repeat="(key, details) in indexed" ng-show="indexed">
+                <h2>
+                  <span ng-if="indexDisplay">Showing index for {{details.indexedFile}}</span>
+                  <span ng-if="!indexDisplay">Search result for "{{searchQuery}}" in "{{details.searchedFile}}"</span>
+                </h2>
+                <table class="table table-striped">
+                  <thead>
+                    <th>Tokens</th>
+                    <th style="text-align:center" ng-repeat="i in details.documents">Document {{i+1}}</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in details.indexes">
+                      <td>{{key}}</td>
+                      <td ng-repeat="docnum in details.documents" style="text-align:center; font-weight:bold">
+                        <span ng-if="value.includes(docnum)">X</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="form-group">
-                <button class="btn btn-large btn-primary" ng-click="getIndex()">GET INDEX</button>
-              </div>
-            </form>
+            </div>
             <br/>
-            <form class="form-inline">
-              <div class="form-group">
-                <select class="form-control" ng-model="uploadToSearch">
-                  <option value="all" ng-if="allFlag">All files</option>
-                  <option value="{{key}}" ng-repeat="(key, value) in allFilesIndexed">{{key}}</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <input type="text" ng-model="searchTerm" class="form-control" placeholder="Enter Search Term" />
-              </div>
-
-              <div class="form-group">
-                <button class="btn btn-large btn-primary" ng-click="searchIndex()">Search INDEX</button>
-              </div>
-            </form>
+            
             
             
         </div>
-        <div class="clearfix"></div>
-        <br/>
-        <div class="row">
-          <div ng-repeat="(key, details) in indexed" class="col-sm-6 col-sm-offset-3" ng-show="indexed">
-            <h2>
-              <span ng-if="indexDisplay">Showing index for {{details.indexedFile}}</span>
-              <span ng-if="!indexDisplay">Search result for "{{searchQuery}}" in "{{details.searchedFile}}"</span>
-            </h2>
-            <table class="table table-striped">
-              <thead>
-                <th>Tokens</th>
-                <th style="text-align:center" ng-repeat="i in details.documents">Document {{i+1}}</th>
-              </thead>
-              <tbody>
-                <tr ng-repeat="(key, value) in details.indexes">
-                  <td>{{key}}</td>
-                  <td ng-repeat="docnum in details.documents" style="text-align:center; font-weight:bold">
-                    <span ng-if="value.includes(docnum)">X</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+
+        <div class="col-sm-4">
+            <blockquote>
+              <h1>
+                Inverted Index
+              </h1>
+                <p>
+                    Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
+                </p>
+
+                <p>
+                  <h3>How to use</h3>
+                  <ol>
+                    <li>Upload JSON file</li>
+                    <li>Select file to index and click on get index</li>
+                    <li>Enter word(s) to search and select the file to search or an option to search all files</li>
+                  </ol>
+                </p>
+            </blockquote>
         </div>
     </div>
 </body>
