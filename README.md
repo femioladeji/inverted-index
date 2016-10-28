@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/andela-foladeji/inverted-index.svg)](https://travis-ci.org/andela-foladeji/inverted-index)
 [![Coverage Status](https://coveralls.io/repos/github/andela-foladeji/inverted-index/badge.svg?branch=develop)](https://coveralls.io/github/andela-foladeji/inverted-index?branch=develop)
+[![Code Climate](https://codeclimate.com/github/andela-foladeji/inverted-index/badges/gpa.svg)](https://codeclimate.com/github/andela-foladeji/inverted-index)
 
 # Inverted Index
 Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
@@ -21,29 +22,36 @@ Elasticsearch uses a structure called an inverted index, which is designed to al
 The application can be accessed on heroku via [https://inverted-index.herokuapp.com](https://inverted-index.herokuapp.com).
 It can also be used locally by following the steps below
 
-1. Clone the repository 
+1. Clone the repository
 ```
 git clone https://github.com/andela-foladeji/inverted-index.git
 ```
-1. Move into the repository directory 
+2. Move into the repository directory 
 ```
 cd inverted-index
 ```
-1. Run npm install to install all the dependencies (you must have installed [Nodejs](nodejs.org))
+3. Run npm install to install all the dependencies (you must have installed [Nodejs](nodejs.org))
     ### Dependencies
     - gulp
-    - coveralls
-    - karma
-    - jshint
+    - coveralls (test coverage reporting)
+    - karma (test)
+    - jshint (code style)
     - jasmine-core
 ```
 npm install
 ```
-1. Start the application by executing the command below
+4. Start the application by executing the command below
 ```
 npm start
 ```
+5. To run tests, you can run the command below
+```
+npm test
+```
+
+## Limitation
+- The application can not distinguish between plural and singular words. It also does not distinguish between the past tense form of a verb
 
 ## More information
-- [Inverted Index - Wikipedia] (https://en.wikipedia.org/wiki/Inverted_index)
+- [Inverted Index - Wikipedia](https://en.wikipedia.org/wiki/Inverted_index)
 - [Inverted Index](https://www.elastic.co/guide/en/elasticsearch/guide/current/inverted-index.html)
