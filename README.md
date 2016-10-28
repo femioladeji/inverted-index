@@ -30,7 +30,8 @@ git clone https://github.com/andela-foladeji/inverted-index.git
 ```
 cd inverted-index
 ```
-3. Run npm install to install all the dependencies (you must have installed [Nodejs](nodejs.org))
+3. Run npm install to install all the dependencies. The application is build on [Nodejs](nodejs.org)
+
     ### Dependencies
     - gulp
     - coveralls (test coverage reporting)
