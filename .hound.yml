@@ -1,0 +1,6 @@
+jshint:
+  enabled: true
+jshint:
+  config_file: .jshintrc
+jshint:
+  ignore_file: .jshintignore

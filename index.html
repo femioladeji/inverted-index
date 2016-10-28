@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="invertedIndex">
+<head>
+    <title>INVERTED INDEX</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    
+</head>
+<body ng-controller="invertedController">
+    <!-- beginning of the header -->
+    <header>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand">Inverted Index</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- end of headder -->
+
+    <!-- beginning of modal -->
+    <div id="response-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Warning</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{message}}</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- end of modal -->
+    <div class="container">
+        <div class="col-sm-8">
+            <form class="form-inline">
+                <div class="form-group">
+                    
+                    <label class="btn btn-primary">Upload File
+                      <input class="form-control" style="display:none" type="file" id="uploadfile">
+                    </label>
+                </div>
+                <div class="form-group">
+                  <select class="form-control" ng-model="uploadSelected">
+                    <option value="{{key}}" ng-repeat="(key, value) in uploadedFiles">{{key}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-primary" ng-click="getIndex()">GET INDEX</button>
+                </div>
+
+                <div class="form-group pull-right">
+                  <button class="btn btn-primary" ng-click="searchIndex()">Search</button>
+                </div>
+                
+                <div class="form-group pull-right">
+                  <select class="form-control" ng-model="uploadToSearch">
+                    <option value="all" ng-if="allFlag">All files</option>
+                    <option value="{{key}}" ng-repeat="(key, value) in allFilesIndexed">{{key}}</option>
+                  </select>
+                </div>
+
+                <div class="form-group pull-right">
+                  <input type="text" ng-model="searchTerm" class="form-control" placeholder="Enter Search Term" />
+                </div>
+            </form>
+            <div class="clearfix"></div>
+            <hr/>
+
+            <div class="row">
+              <div ng-repeat="(key, details) in indexed" ng-show="indexed">
+                <h2>
+                  <span ng-if="indexDisplay">Showing index for {{details.indexedFile}}</span>
+                  <span ng-if="!indexDisplay">Search result for "{{searchQuery}}" in "{{details.searchedFile}}"</span>
+                </h2>
+                <table class="table table-striped">
+                  <thead>
+                    <th>Tokens</th>
+                    <th style="text-align:center" ng-repeat="i in details.documents">Document {{i+1}}</th>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in details.indexes">
+                      <td>{{key}}</td>
+                      <td ng-repeat="docnum in details.documents" style="text-align:center; font-weight:bold">
+                        <span ng-if="value.includes(docnum)">X</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <br/>
+            
+            
+            
+        </div>
+
+        <div class="col-sm-4">
+            <blockquote>
+              <h1>
+                Inverted Index
+              </h1>
+                <p>
+                    Elasticsearch uses a structure called an inverted index, which is designed to allow very fast full-text searches. An inverted index consists of a list of all the unique words that appear in any document, and for each word, a list of the documents in which it appears.
+                </p>
+
+                <p>
+                  <h3>How to use</h3>
+                  <ol>
+                    <li>Upload JSON file</li>
+                    <li>Select file to index and click on get index</li>
+                    <li>Enter word(s) to search and select the file to search or an option to search all files</li>
+                  </ol>
+                </p>
+            </blockquote>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script>
+
+<script type="text/javascript" src="src/inverted-index.js"></script>
+
+<script type="text/javascript" src="src/app.js"></script>
+</html>
