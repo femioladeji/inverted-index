@@ -2,6 +2,7 @@ engines:
   fixme:
     enabled: true
 ratings:
-paths: []
+paths:
+  - "**.js"
 exclude_paths:
-  - spec/lib/*
+  - spec/lib/
