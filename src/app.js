@@ -12,9 +12,9 @@ invApp.controller('invertedController', ['$scope', function($scope) {
   $scope.allFlag = false;
   $scope.allFilesIndexed = {};
   /**
-  $scope.getIndex is executed when the getIndex button is clicked
+  $scope.createIndex is executed when the createIndex button is clicked
   */
-  $scope.getIndex = function() {
+  $scope.createIndex = function() {
     let fileChoice = $scope.uploadSelected;
     if(!fileChoice) {
       showMessage('Select a file to get index');
@@ -34,7 +34,8 @@ invApp.controller('invertedController', ['$scope', function($scope) {
       ];
       //Keeps track of files that have been indexed
       $scope.allFilesIndexed[fileChoice] = true;
-
+      let fileNamesIndexed = Object.keys($scope.allFilesIndexed);
+      $scope.uploadToSearch = fileNamesIndexed[fileNamesIndexed.length-1];
       /*To check if two files or above have been indexed
       so that an option to search all files can be added*/
       if(Object.keys($scope.allFilesIndexed).length > 1) {
@@ -91,7 +92,9 @@ invApp.controller('invertedController', ['$scope', function($scope) {
         }
         $scope.uploadedFiles[fileDetails.name] = {};
         $scope.uploadedFiles[fileDetails.name].text = content;
-        
+        let fileNames = Object.keys($scope.uploadedFiles);
+        $scope.uploadSelected = fileNames[fileNames.length-1];
+
         //to make angular update the view
         $scope.$apply();
       };
