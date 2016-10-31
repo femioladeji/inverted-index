@@ -101,6 +101,10 @@ invApp.controller('invertedController', ['$scope', function($scope) {
     }
   };
 
+  $scope.isEmpty = function(value) {
+    return Object.keys(value).length === 0;
+  };
+
   function showMessage(message) {
     $scope.message = message;
     $('#response-modal').modal();
