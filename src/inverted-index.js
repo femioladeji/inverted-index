@@ -20,7 +20,9 @@ class Index {
     try {
       inputData = JSON.parse(inputData);
     } catch(exception) {
-      return false;
+      if(typeof inputData !== 'object' || inputData.length === 0) {
+        return false;
+      }
     }
 
     this.filesIndexed[filename] = {};

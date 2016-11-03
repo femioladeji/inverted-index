@@ -1,3 +1,4 @@
+'use strict';
 // Karma configuration
 // Generated on Fri Oct 14 2016 01:27:09 GMT+0100 (WAT)
 
@@ -16,7 +17,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'src/inverted-index.js',
-      'spec/*.js'
+      'spec/test-spec.js'
     ],
 
 
@@ -38,7 +39,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage',],
+    reporters: ['progress', 'coverage', 'verbose'],
 
     coverageReporter: {
       type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
