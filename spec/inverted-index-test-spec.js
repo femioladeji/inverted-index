@@ -50,15 +50,16 @@ describe('Inverted Index class', function() {
 
     it('should return false if some docs don\'t have title or text',
       function() {
-        let indexed = this.indexInstance.createIndex(this.invalid, 'invalid.json');
+        let indexed = this.indexInstance.createIndex(this.invalid,
+        'invalid.json');
         expect(indexed).toBeFalsy();
       });
   });
 
   describe('Search index', function() {
 
-    it('should return an array of object(s) with each word as keys and the \
-      value is an array of the document index', function() {
+    it('should return an array of object(s) with each word as keys and the '+
+      'value is an array of the document index', function() {
         let book = this.valid;
 
         this.indexInstance.createIndex(book, 'book.json');
@@ -73,8 +74,8 @@ describe('Inverted Index class', function() {
         expect(result).toEqual(expectedResult);
     });
 
-    it('should return an array of search result for each file if the \
-      file searched is all', function() {
+    it('should return an array of search result for each file if the '+
+      'file searched is all', function() {
         let book1 = this.valid;
 
         let book2 = this.valid;
