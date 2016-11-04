@@ -68,8 +68,8 @@
                 
                 <div class="form-group pull-right">
                   <select ng-hide="isEmpty(allFilesIndexed)" class="form-control" ng-model="uploadToSearch">
-                    <option value="{{key}}" ng-repeat="(key, value) in allFilesIndexed">{{key}}</option>
                     <option value="all" ng-if="allFlag">All files</option>
+                    <option value="{{key}}" ng-repeat="(key, value) in allFilesIndexed">{{key}}</option>
                   </select>
                 </div>
 
